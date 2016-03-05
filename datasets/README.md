@@ -1,4 +1,8 @@
 # Datasets
+
+The data and vehicle detection algorithm were obtained from
+https://github.com/C4ptainCrunch/info-f-308
+
 ## File format
 
 The datasets are given in the CSV file format. For each STIB line, in both
