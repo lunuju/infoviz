@@ -1,8 +1,6 @@
-import psycopg2
+import psycopg2 as pg
 import traceback
-import pandas as pd
 from collections import defaultdict
-from multiprocessing import Pool
 
 STIB_LINES = [
     1, 12, 13, 14, 15, 17, 19, 2, 20, 21, 22, 25, 27, 28, 29, 3, 32, 34, 36,
@@ -43,7 +41,7 @@ def get_trajects(line, direction):
                WHERE line='%(line)s' AND way=%(direction)s
                ORDER BY id;"""
 
-    conn = psycopg2.connect(database="delay")
+    conn = pg.connect(database="delay")
     conn.autocommit = True
 
     cur = conn.cursor()
@@ -88,35 +86,32 @@ def get_trajects(line, direction):
     return list(trajects)
 
 
-def trajects_to_dataframe(trajects):
-    rows = []
-    for vehicle_pos in trajects:
-        r = {}
-        for time, stop_id in vehicle_pos:
-            r[stop_id] = time
-        r['departure'] = vehicle_pos[0][0]
-        r['arrival'] = vehicle_pos[-1][0]
-        rows.append(r)
+def extract_line(line):
+    found = 0
+    conn = pg.connect(database='delay')
+    cur = conn.cursor()
+    query = 'INSERT INTO legs (departure,arrival,line,from_stop_id,to_stop_id) VALUES (%s,%s,%s,%s,%s)'
+    for direction in [1, 2]:
+        trajs = get_trajects(line['lineNo'], direction)
+        stops = line[str(direction)]
+        for t in trajs:
+            for (t1, idx1), (t2, idx2) in zip(t[:-1], t[1:]):
+                dt = (t2-t1).total_seconds()
+                if dt > 6*3600:
+                    continue
+                record = [t1, t2, line['lineNo'], stops[idx1], stops[idx2]]
+                cur.execute(query, record)
+                found += 1
+    conn.commit()
+    print "Finished line", line['lineNo'], "with", found, "legs"
 
-    df = pd.DataFrame(rows)
-    df.set_index(['departure', 'arrival'], inplace=True)
-    return df.apply(lambda x: x.dropna().diff()/pd.Timedelta(seconds=1), axis=1)
-
-
-def traject_to_csv(kwargs):
-    filename = "datasets/{line}-{direction}.csv".format(**kwargs)
-    try:
-        traj = get_trajects(**kwargs)
-        df = trajects_to_dataframe(traj)
-        df.to_csv(filename)
-        return df
-    except:
-        traceback.print_exc()
-
-
-def extract_trajects():
-    keys = [{'line': l, 'direction': w} for l in STIB_LINES for w in [1, 2]]
-    return Pool(8).map(traject_to_csv, keys)
 
 if __name__ == "__main__":
-    extract_trajects()
+    import json
+
+    for line in json.load(open('stib-lines.json')):
+        try:
+            extract_line(line)
+        except:
+            print "Error with line", line['lineNo']
+            traceback.print_exc()
