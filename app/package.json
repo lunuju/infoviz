@@ -13,6 +13,7 @@
         "babel-loader": "",
         "webpack": "",
 
+        "colormap": "",
         "jquery": "",
         "leaflet": ""
     }
