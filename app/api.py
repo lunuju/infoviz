@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask.ext.cors import CORS
 import psycopg2 as pg
 from psycopg2.extras import RealDictCursor
 from datetime import timedelta
 import json
 
 app = Flask(__name__)
+CORS(app)  # Allow cross-origin requests
 
 
 def cast(a_dict):
