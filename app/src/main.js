@@ -1,13 +1,17 @@
 import {STIB_LINES, STIB_STOPS} from './data.js'
-import colormap from 'colormap'
+import {getColor} from './colors.js'
+import GreatCircle from 'great-circle'
 import L from 'leaflet'
 import $ from 'jquery'
+
+
+const API_URL = "http://infoviz.ititou.be/api"
 
 
 String.prototype.rjust = function( length, char ) {
     var fill = [];
     while ( fill.length + this.length < length ) {
-      fill[fill.length] = char;
+        fill[fill.length] = char;
     }
     return fill.join('') + this;
 }
@@ -15,32 +19,22 @@ String.prototype.rjust = function( length, char ) {
 String.prototype.ljust = function( length, char ) {
     var fill = [];
     while ( fill.length + this.length < length ) {
-      fill[fill.length] = char;
+        [fill.length] = char;
     }
     return this + fill.join('');
 }
 
-const cmap = colormap({
-    nshades: 100, 
-    colormap: [
-        {index: 0, rgb: [0x1a, 0x96, 0x41, 1]},
-        {index: 0.5, rgb: [0xff, 0xff, 0xbf, 1]},
-        {index: 1, rgb: [0xd7, 0x19, 0x1c, 1]},
-    ]
-})
-const metrics = ['count', 'per_hour', 'min_time', 'avg_time', 'max_time']
+// Metrics grabbed for each leg in a given time frame
+const metrics = [
+    'count',    // Total number of vehicles in time frame
+    'per_hour', // Number of vehicles per hour
+    'min_time', // Minimum travel time
+    'avg_time', // Average travel time
+    'max_time'  // Maximum travel time
+]
 
-function aggregate_metrics(data){
-    let res = {}
-    for (let k of metrics){
-        res[k] = {
-            min: Math.min(...data.map(row => row[k])),
-            max: Math.max(...data.map(row => row[k]))
-        }
-    }
-    return res
-}
-
+// A Leg is a link between 2 stops. A Line is made of consecutive legs,
+// but a leg could belong to multiple lines
 class Leg {
     constructor(data){
         this.fromStop = STIB_STOPS[`${data.from_stop_id}`.rjust(4, '0')]
@@ -56,15 +50,11 @@ class Leg {
         }
     }
 
-    norm(aggregate){
-        let props = {
-            fromStop: this.fromStop,
-            toStop: this.toStop
-        }
-        for (let k of metrics){
-            props[k] = this[k] / aggregate[k].max
-        }
-        return new Leg(props)
+    distance(){
+        return GreatCircle.distance(
+            this.fromStop.latitude, this.fromStop.longitude,
+            this.toStop.latitude, this.toStop.longitude
+        )
     }
 
     isClean(){
@@ -78,17 +68,9 @@ class Leg {
         ]
     }
 
-    timeWindow(lower, upper){
-        return this.data.filter(
-            record => record.departure > lower && record.arrival < upper
-        ).map(record => record.dt)
-    }
-
-    toLeaflet(aggregate){
-        let l = this.norm(aggregate)
-        let c = Math.round(100*Math.sqrt(l.avg_time))
+    toLeaflet(){
         let style = {
-            color: cmap[c],
+            color: getColor(this.avg_time/this.distance(), 600),
             opacity: 1,
             weight: Math.sqrt(this.per_hour)
         }
@@ -120,7 +102,7 @@ class App {
     refresh(){
         let from_time = $('#from-time-picker').val()
         let to_time = $('#to-time-picker').val()
-        $.getJSON(`/api?from_time=${from_time}&to_time=${to_time}`, data => {
+        $.getJSON(`${API_URL}?from_time=${from_time}&to_time=${to_time}`, data => {
             let legs = data.map(x => new Leg(x)).filter(x => x.isClean())
 
             for (let layer of this.features){
@@ -128,14 +110,19 @@ class App {
             }
             this.features = []
 
-            let agg = aggregate_metrics(legs)
             for (let leg of legs){
-                this.features.push(leg.toLeaflet(agg).addTo(this.map))
+                this.features.push(leg.toLeaflet().addTo(this.map))
             }
+            $('#change-time').each(function(){
+                this.disabled = false
+                this.value = "Refresh"
+            })
+        })
+        $('#change-time').each(function(){
+            this.disabled = true
+            this.value = "Refreshing..."
         })
     }
 }
 
-$(document).ready(() => {
-    new App('map')
-})
+$(document).ready(() => new App('map'))

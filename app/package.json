@@ -15,6 +15,7 @@
 
         "colormap": "",
         "jquery": "",
-        "leaflet": ""
+        "leaflet": "",
+        "great-circle": ""
     }
 }
