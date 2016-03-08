@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response
 from flask.ext.cors import CORS
 import psycopg2 as pg
 from psycopg2.extras import RealDictCursor
@@ -20,7 +20,9 @@ def sql(query, args):
     conn = pg.connect(database='delay')
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute(query, args)
-    return json.dumps(map(cast, cur.fetchall()))
+    response = make_response(json.dumps(map(cast, cur.fetchall())))
+    response.headers['Content-type'] = 'application/json'
+    return response
 
 
 @app.route("/api")
