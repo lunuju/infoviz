@@ -3,6 +3,7 @@ import {getColor} from './colors.js'
 import GreatCircle from 'great-circle'
 import L from 'leaflet'
 import $ from 'jquery'
+import {loadSlider} from './ion.rangeSlider.js'
 
 
 const API_URL = "http://infoviz.ititou.be/api"
@@ -97,6 +98,19 @@ class App {
         this.features = []
         $('#change-time').click(evt => this.refresh())
         this.refresh()
+
+        $("#range").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 0,
+            max: 5000,
+            from: 1000,
+            to: 4000,
+            type: 'double',
+            step: 1,
+            prefix: "$",
+            grid: true
+        });
     }
 
     refresh(){
@@ -125,4 +139,8 @@ class App {
     }
 }
 
-$(document).ready(() => new App('map'))
+$(document).ready(() => {
+    // Load ion-rangeSlider plugin
+    loadSlider($, document, window, navigator)
+    new App('map')
+})

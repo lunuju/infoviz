@@ -7,15 +7,14 @@
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
         <style type="text/css">
         #map {
-            width: 600;
+            width: 800px;
             height: 600px;
         }
         </style>
 
-    <link rel="stylesheet" href="static/slider/css/normalize.css" />
-    <link rel="stylesheet" href="static/slider/css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="static/slider/css/ion.rangeSlider.skinFlat.css" />
-
+        <link rel="stylesheet" href="slider/css/normalize.css" />
+        <link rel="stylesheet" href="slider/css/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
     </head>
     <body>
         <div id="map"></div>
@@ -25,41 +24,12 @@
             To
             <input type="text" id="to-time-picker" value="2016-03-01 09:30">
             <input type="button" id="change-time" value="Refresh">
-
-<!-- Page contents -->
-<div style="position: relative; padding: 20px;">
-
-    <div>
-        <input type="text" id="range" value="" name="range" />
-    </div>
-
-</div>
-
+            <div style="position: relative; padding: 20px;">
+                <div>
+                    <input type="text" id="range" value="" name="range" />
+                </div>
+            </div>
         </p>
-
-<!-- All that awesome JS that we love-->
         <script type="text/javascript" src="app.js"></script>
-	<script src="static/slider/js/jquery-1.11.3.min.js"></script>
-	<script src="static/slider/js/ion.rangeSlider.js"></script>
-	
-<script>
-
-    $(function () {
-
-        $("#range").ionRangeSlider({
-            hide_min_max: true,
-            keyboard: true,
-            min: 0,
-            max: 5000,
-            from: 1000,
-            to: 4000,
-            type: 'double',
-            step: 1,
-            prefix: "$",
-            grid: true
-        });
-
-    });
-</script>
     </body>
 </html>
