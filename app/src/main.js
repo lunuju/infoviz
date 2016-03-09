@@ -3,8 +3,9 @@ import {getColor} from './colors.js'
 import GreatCircle from 'great-circle'
 import L from 'leaflet'
 import $ from 'jquery'
-import {loadSlider} from './ion.rangeSlider.js'
 
+import {loadSlider} from './ion.rangeSlider.js'
+loadSlider($, document, window, navigator)
 
 const API_URL = "http://infoviz.ititou.be/api"
 
@@ -71,7 +72,7 @@ class Leg {
 
     toLeaflet(){
         let style = {
-            color: getColor(this.avg_time/this.distance(), 600),
+            color: getColor(this.avg_time/this.distance(), 900),
             opacity: 1,
             weight: Math.sqrt(this.per_hour)
         }
@@ -94,53 +95,55 @@ class App {
         // L.tileLayer('http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')
         L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
          .addTo(this.map)
-
         this.features = []
-        $('#change-time').click(evt => this.refresh())
-        this.refresh()
+        this.refresh("2016-03-01 08:00", "2016-03-01 10:00")
 
         $("#range").ionRangeSlider({
             hide_min_max: true,
             keyboard: true,
-            min: 0,
-            max: 5000,
-            from: 1000,
-            to: 4000,
+            min: 1449489600000,
+            max: 1457024400000,
+            from: 1456819200000,
+            to: 1456826400000,
             type: 'double',
-            step: 1,
-            prefix: "$",
-            grid: true
+            step: 3600,
+            grid: true,
+            prettify: num => new Date(num).toLocaleString(),
+            onFinish: data => {
+                let from_time = new Date(data.from).toISOString()
+                let to_time = new Date(data.to).toISOString()
+                let slider = data.input.data("ionRangeSlider")
+                slider.update({disable: true})
+                this.refresh(from_time, to_time)
+                    .then(() => slider.update({disable: false}))
+            }
         });
     }
 
-    refresh(){
-        let from_time = $('#from-time-picker').val()
-        let to_time = $('#to-time-picker').val()
-        $.getJSON(`${API_URL}?from_time=${from_time}&to_time=${to_time}`, data => {
-            let legs = data.map(x => new Leg(x)).filter(x => x.isClean())
+    updateMap(legs){
+        for (let layer of this.features){
+            this.map.removeLayer(layer)
+        }
+        this.features = []
 
-            for (let layer of this.features){
-                this.map.removeLayer(layer)
-            }
-            this.features = []
+        for (let leg of legs){
+            this.features.push(leg.toLeaflet().addTo(this.map))
+        }
+    }
 
-            for (let leg of legs){
-                this.features.push(leg.toLeaflet().addTo(this.map))
-            }
-            $('#change-time').each(function(){
-                this.disabled = false
-                this.value = "Refresh"
+    refresh(from_time, to_time){
+        console.log(`refresh ${from_time} ${to_time}`)
+        return new Promise((ok, error) => {
+            let params = `from_time=${from_time}&to_time=${to_time}`
+            $.getJSON(`${API_URL}?${params}`, data => {
+                let legs = data.map(x => new Leg(x)).filter(x => x.isClean())
+                this.updateMap(legs)
+                ok()
             })
-        })
-        $('#change-time').each(function(){
-            this.disabled = true
-            this.value = "Refreshing..."
         })
     }
 }
 
 $(document).ready(() => {
-    // Load ion-rangeSlider plugin
-    loadSlider($, document, window, navigator)
     new App('map')
 })
