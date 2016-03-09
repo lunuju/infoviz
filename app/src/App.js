@@ -29,7 +29,7 @@ export default class App {
             from: 1456819200000,
             to: 1456826400000,
             type: 'double',
-            step: 3600,
+            step: 3600000,
             grid: true,
             prettify: num => new Date(num).toLocaleString(),
             onFinish: data => {

@@ -31,16 +31,7 @@ function getStop(stop_id, stop){
 // A Leg is a link between 2 stops. A Line is made of consecutive legs,
 // but a leg could belong to multiple lines
 export default class Leg {
-    constructor(data){
-
-        this.fromStop = getStop(data.from_stop_id, data.fromStop)
-        this.toStop = getStop(data.to_stop_id, data.toStop)
-        for (let k of this.metrics()){
-            this[k] = data[k]
-        }
-    }
-
-    metrics(){
+    static metrics(){
         return [
             'count',    // Total number of vehicles in time frame
             'per_hour', // Number of vehicles per hour
@@ -48,6 +39,14 @@ export default class Leg {
             'avg_time', // Average travel time
             'max_time'  // Maximum travel time
         ]
+    }
+
+    constructor(data){
+        this.fromStop = getStop(data.from_stop_id, data.fromStop)
+        this.toStop = getStop(data.to_stop_id, data.toStop)
+        for (let k of Leg.metrics()){
+            this[k] = data[k]
+        }
     }
 
     distance(){
