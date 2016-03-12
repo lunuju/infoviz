@@ -1,0 +1,258 @@
+[  
+   {  
+      "lines":[  
+         25,
+         62
+      ],
+      "type":"began",
+      "stops":[  
+         "Liedts",
+         "Meiser"
+      ],
+      "timestamp":"Tue Mar 08 07:56:41 +0000 2016"
+   },
+   {  
+      "lines":[  
+         25,
+         62
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Tue Mar 08 09:27:25 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"began",
+      "stops":[  
+         "Louise",
+         "Botanique"
+      ],
+      "timestamp":"Tue Mar 08 14:44:00 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Tue Mar 08 19:07:44 +0000 2016"
+   },
+   {  
+      "lines":[  
+         4,
+         92
+      ],
+      "type":"began",
+      "stops":[  
+         "H\u00e9ros",
+         "Vanderkindere"
+      ],
+      "timestamp":"Wed Mar 09 08:49:19 +0000 2016"
+   },
+   {  
+      "lines":[  
+         4,
+         92
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 08:55:09 +0000 2016"
+   },
+   {  
+      "lines":[  
+         62,
+         93
+      ],
+      "type":"began",
+      "stops":[  
+         "JulesDeTrooz",
+         "Bockstael"
+      ],
+      "timestamp":"Wed Mar 09 11:35:36 +0000 2016"
+   },
+   {  
+      "lines":[  
+         62,
+         93
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 11:50:07 +0000 2016"
+   },
+   {  
+      "lines":[  
+         7
+      ],
+      "type":"began",
+      "stops":[  
+         "Meiser",
+         "VanPraet"
+      ],
+      "timestamp":"Wed Mar 09 14:04:11 +0000 2016"
+   },
+   {  
+      "lines":[  
+         7
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 14:15:20 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92
+      ],
+      "type":"began",
+      "stops":[  
+         "Verboekhoven",
+         "SteMarie"
+      ],
+      "timestamp":"Wed Mar 09 15:03:08 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 15:23:44 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"began",
+      "stops":[  
+         "Louise",
+         "Botanique"
+      ],
+      "timestamp":"Wed Mar 09 19:04:11 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 19:18:22 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"began",
+      "stops":[  
+         "Louise",
+         "Botanique"
+      ],
+      "timestamp":"Wed Mar 09 21:22:03 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92,
+         93
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Wed Mar 09 22:27:00 +0000 2016"
+   },
+   {  
+      "lines":[  
+         3,
+         4,
+         25,
+         55
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Thu Mar 10 09:21:37 +0000 2016"
+   },
+   {  
+      "lines":[  
+         51
+      ],
+      "type":"began",
+      "stops":[  
+         "Belgica",
+         "Yser"
+      ],
+      "timestamp":"Thu Mar 10 12:21:29 +0000 2016"
+   },
+   {  
+      "lines":[  
+         51
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Thu Mar 10 13:15:36 +0000 2016"
+   },
+   {  
+      "lines":[  
+         51
+      ],
+      "type":"began",
+      "stops":[  
+         "Ypres",
+         "Belgica"
+      ],
+      "timestamp":"Fri Mar 11 10:26:42 +0000 2016"
+   },
+   {  
+      "lines":[  
+         51
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Fri Mar 11 10:36:52 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92
+      ],
+      "type":"began",
+      "stops":[  
+         "FortJaco",
+         "Lancaster"
+      ],
+      "timestamp":"Sat Mar 12 10:39:30 +0000 2016"
+   },
+   {  
+      "lines":[  
+         92
+      ],
+      "type":"ended",
+      "stops":[  
+
+      ],
+      "timestamp":"Sat Mar 12 10:46:49 +0000 2016"
+   }
+]
