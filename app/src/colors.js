@@ -9,7 +9,7 @@ const cmap = colormap({
     ]
 })
 
-export function getColor(value, upper, lower=0){
+export default function getColor(value, upper, lower=0){
     if (value > upper){
         value = upper
     }

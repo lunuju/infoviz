@@ -16,7 +16,6 @@
         "colormap": "",
         "jquery": "",
         "leaflet": "",
-        "great-circle": "",
-        "ion-rangeslider": ""
+        "great-circle": ""
     }
 }

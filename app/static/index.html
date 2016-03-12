@@ -7,8 +7,11 @@
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
         <style type="text/css">
         #map {
-            width: 800px;
             height: 600px;
+        }
+        .outer-slider, #map {
+            padding: 50px;
+            width: 800px;
         }
         </style>
 
@@ -18,18 +21,9 @@
     </head>
     <body>
         <div id="map"></div>
-        <p>
-            From
-            <input type="text" id="from-time-picker" value="2016-03-01 08:00">
-            To
-            <input type="text" id="to-time-picker" value="2016-03-01 09:30">
-            <input type="button" id="change-time" value="Refresh">
-            <div style="position: relative; padding: 20px;">
-                <div>
-                    <input type="text" id="range" value="" name="range" />
-                </div>
-            </div>
-        </p>
+        <div class="outer-slider">
+            <input type="text" id="range" value="" name="range" />
+        </div>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>
