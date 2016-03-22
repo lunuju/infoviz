@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="slider/css/normalize.css" />
     <link rel="stylesheet" href="slider/css/ion.rangeSlider.css" />
     <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <style type="text/css">
+    .map {min-height: 400px; max-height: 800px;}
+    </style>
   </head>
 
   <body>
@@ -84,53 +88,21 @@
     </nav>
 
     <div class="container">
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <h1>Content goes here</h1>
-        <p>This is an example. </p><p>This is an example. </p><p>This is an example. </p><p>This is an example. </p>
-
+      <div id="left" class="col-md-6">
+          <div class="map"></div>
+          <div class="outer-slider">
+              <input type="text" class="range" value="" name="range" />
+          </div>
+      </div>
+      <div id="right" class="col-md-6">
+          <div class="map"></div>
+          <div class="outer-slider">
+              <input type="text" class="range" value="" name="range" />
+          </div>
+      </div>
     </div> <!-- /container -->
 
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-
-    <script src="http://ionden.com/a/plugins/ion.rangeSlider/static/js/ion-rangeSlider/ion.rangeSlider.js"></script>
-
+    <script type="text/javascript" src="app.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-<script>
-
-    $(function () {
-
-        $("#range1").ionRangeSlider({
-            hide_min_max: true,
-            keyboard: true,
-            min: 0,
-            max: 5000,
-            from: 1000,
-            to: 4000,
-            type: 'double',
-            step: 1,
-            prefix: "$",
-            grid: true
-        });
-        $("#range2").ionRangeSlider({
-            hide_min_max: true,
-            keyboard: true,
-            min: 0,
-            max: 5000,
-            from: 1000,
-            to: 4000,
-            type: 'double',
-            step: 1,
-            prefix: "$",
-            grid: true
-        });
-
-    });
-</script>
   </body>
 </html>

@@ -5,3 +5,5 @@ $(document).ready(() => {
     new App($('#left'))
     new App($('#right'))
 })
+
+window.jQuery = $
