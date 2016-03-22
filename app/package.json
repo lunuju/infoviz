@@ -2,8 +2,9 @@
     "name": "InfoVizProjectSTIB",
     "version": "1.0.0",
     "scripts": {
-        "build": "webpack --progress --output-file static/app.js",
-        "build-prod": "webpack --progress --optimize-minimize --optimize-dedupe --optimize-occurence-order --output-file static/app.min.js"
+        "devserver": "webpack-dev-server --progress --colors",
+        "build": "webpack --progress --output-file app.js",
+        "build-prod": "webpack --progress --optimize-minimize --optimize-dedupe --optimize-occurence-order --output-file app.min.js"
     },
     "devDependencies": {
         "babel-cli": "^6.0.0",

@@ -1,11 +1,10 @@
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
-  entry: ['./src/main.js'],
+  entry: './src/main.js',
   output: {
-      publicPath: '/',
-      filename: './static/app.js'
+      path: path.join(__dirname, 'static'),
+      filename: 'app.js'
   },
   devtool: 'source-map',
   module: {
@@ -17,5 +16,9 @@ module.exports = {
       }
     ]
   },
-  debug: true
+  debug: true,
+  cache: true,
+  devServer: {
+    contentBase: path.join(__dirname, 'static')
+  }
 };

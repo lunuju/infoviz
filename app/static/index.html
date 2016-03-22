@@ -6,10 +6,10 @@
 
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
         <style type="text/css">
-        #map {
+        .map {
             height: 600px;
         }
-        .outer-slider, #map {
+        .app {
             padding: 50px;
             width: 800px;
         }
@@ -20,9 +20,17 @@
         <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
     </head>
     <body>
-        <div id="map"></div>
-        <div class="outer-slider">
-            <input type="text" id="range" value="" name="range" />
+        <div id="left" class="app">
+            <div class="map"></div>
+            <div class="outer-slider">
+                <input type="text" class="range" value="" name="range" />
+            </div>
+        </div>
+        <div id="right" class="app">
+            <div class="map"></div>
+            <div class="outer-slider">
+                <input type="text" class="range" value="" name="range" />
+            </div>
         </div>
         <script type="text/javascript" src="app.js"></script>
     </body>
