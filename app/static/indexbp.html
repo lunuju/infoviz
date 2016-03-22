@@ -16,6 +16,11 @@
 
     <!-- Custom styles for this page -->
     <link href="app/css/mainapp.css" rel="stylesheet">
+
+    <!-- slider -->
+    <link rel="stylesheet" href="slider/css/normalize.css" />
+    <link rel="stylesheet" href="slider/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
   </head>
 
   <body>
@@ -34,52 +39,44 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Button1</a></li>
-            <li><a href="#about">Button2</a></li>
-            <li><a href="#contact">Button3</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="#">UselessButtonForNow</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Button4</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HeavyDropdown <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usual<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Weekend</a></li>
+                <li><a href="#">School holiday</a></li>
+                <li><a href="#">Something else</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">European summit</a></li>
+                <li><a href="#">Terrorist attack</a></li>
+                <li><a href="#">Range rover on subway</a></li>
+                <li><a href="#">Something else</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
                  <ul class="dropdown-menu" role="menu">
-        <li>
-          <div class="container">
-            <div class="form-group">
-                <label label-default="" for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1"
-                placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label label-default="" for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1"
-                placeholder="Password">
-            </div>
-            <div class="form-group">
-                <label label-default="" for="exampleInputFile">File input</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">Check me out</label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-        </li>
-    </ul>
+                  <li>
+                    <div class="container">
+                      <h3>Manual time selection</h3>
+                      <p>The first slider is available range and the second allow a more precise selection</p>
+                      <div class="outer-slider">
+                          <input type="text" id="range1" value="" name="range1" />
+                      </div>
+                      <div class="outer-slider">
+                          <input type="text" id="range2" value="" name="range2" />
+                      </div>
+                      <br><br>
+                      
+                    </div>
+                  </li>
+              </ul>
             </li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -101,7 +98,39 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 
+    <script src="http://ionden.com/a/plugins/ion.rangeSlider/static/js/ion-rangeSlider/ion.rangeSlider.js"></script>
 
     <script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+    $(function () {
+
+        $("#range1").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 0,
+            max: 5000,
+            from: 1000,
+            to: 4000,
+            type: 'double',
+            step: 1,
+            prefix: "$",
+            grid: true
+        });
+        $("#range2").ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: 0,
+            max: 5000,
+            from: 1000,
+            to: 4000,
+            type: 'double',
+            step: 1,
+            prefix: "$",
+            grid: true
+        });
+
+    });
+</script>
   </body>
 </html>
