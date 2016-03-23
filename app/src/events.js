@@ -29,4 +29,9 @@ const EVENTS = [
         "date-start" :"2016-02-17T08:00:00.000Z",
         "date-end" : "2016-02-18T18:00:00.000Z",
     }
+    {
+        "name" : "European Council Dec",
+        "date-start" :"2015-12-17T08:00:00.000Z",
+        "date-end" : "2015-12-18T18:00:00.000Z",
+    }
 ]
