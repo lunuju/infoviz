@@ -57,27 +57,27 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events<span class="caret"></span></a>
               <ul class="dropdown-menu" id="events-menu">
-                <li data-from="2016-03-17T08:00:00.000Z" data-to="2016-03-18T18:00:00.000Z">
+                <li data-from="2016-03-17T08:00:00.000Z" data-to="2016-03-18T18:00:00.000Z"><a href="#">
                   European Summit March
-                </li>
-                <li data-from="2016-03-15T07:00:00.000Z" data-to="2016-03-15T10:30:00.000Z">
+                </a></li>
+                <li data-from="2016-03-15T07:00:00.000Z" data-to="2016-03-15T10:30:00.000Z"><a href="#">
                   Forest Lockdown
-                </li>
-                <li data-from="2016-03-07T08:00:00.000Z" data-to="2016-03-07T18:00:00.000Z">
+                </a></li>
+                <li data-from="2016-03-07T08:00:00.000Z" data-to="2016-03-07T18:00:00.000Z"><a href="#">
                   Turkey Summit
-                </li>
-                <li data-from="2016-03-05T19:00:00.000Z" data-to="2016-03-06T01:00:00.000Z">
+                </a></li>
+                <li data-from="2016-03-05T19:00:00.000Z" data-to="2016-03-06T01:00:00.000Z"><a href="#">
                   Museum Night Fever
-                </li>
-                <li data-from="2016-02-22T15:00:00.000Z" data-to="2016-02-22T20:00:00.000Z">
+                </a></li>
+                <li data-from="2016-02-22T15:00:00.000Z" data-to="2016-02-22T20:00:00.000Z"><a href="#">
                   Car in Subway
-                </li>
-                <li data-from="2016-02-17T08:00:00.000Z" data-to="2016-02-18T18:00:00.000Z">
+                </a></li>
+                <li data-from="2016-02-17T08:00:00.000Z" data-to="2016-02-18T18:00:00.000Z"><a href="#">
                   European Summit Feb
-                </li>
-                <li data-from="2015-12-17T08:00:00.000Z" data-to="2015-12-18T18:00:00.000Z">
+                </a></li>
+                <li data-from="2015-12-17T08:00:00.000Z" data-to="2015-12-18T18:00:00.000Z"><a href="#">
                   European Council Dec
-                </li>
+                </a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -105,17 +105,21 @@
     </nav>
 
     <div class="container-fluid">
-      <div id="left" class="col-xs-6">
-          <div class="map"></div>
-          <div class="outer-slider">
-              <input type="text" class="range" value="" name="range" />
-          </div>
-      </div>
-      <div id="right" class="col-xs-6">
-          <div class="map"></div>
-          <div class="outer-slider">
-              <input type="text" class="range" value="" name="range" />
-          </div>
+      <div class="row">
+        <div id="left" class="col-xs-6">
+            <div class="label label-info">Left map</div>
+            <div class="map"></div>
+            <div class="outer-slider">
+                <input type="text" class="range" value="" name="range" />
+            </div>
+        </div>
+        <div id="right" class="col-xs-6">
+          <div class="label label-warning">Right map</div>
+            <div class="map"></div>
+            <div class="outer-slider">
+                <input type="text" class="range" value="" name="range" />
+            </div>
+        </div>
       </div>
     </div> <!-- /container -->
 

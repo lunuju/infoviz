@@ -6,9 +6,9 @@ $(document).ready(() => {
     let right = new App($('#right'))
 
     let menu = $('#events-menu')
-    menu.find('li').each((_, li) => {
-        $(li).append('<a class="label label-default set-left" href="#">Left</a>')
-        $(li).append('<a class="label label-default set-right" href="#">Right</a>')
+    menu.find('a').each((_, li) => {
+        $(li).prepend('<span title="Set to right map" class="label label-warning set-right">Right</span>&nbsp;')
+        $(li).prepend('<span title="Set to left map" class="label label-info set-left">Left</span>&nbsp;')
     })
 
     menu.find('.set-left').click(evt => {
