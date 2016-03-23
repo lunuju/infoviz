@@ -30,6 +30,11 @@ const EVENTS = [
         "date-end" : "2016-02-18T18:00:00.000Z",
     }
     {
+        "name" : "Louiza Tunnel Closing",
+        "date-start" :"2015-01-13T08:00:00.000Z",
+        "date-end" : "2015-01-31T18:00:00.000Z",
+    }
+    {
         "name" : "European Council Dec",
         "date-start" :"2015-12-17T08:00:00.000Z",
         "date-end" : "2015-12-18T18:00:00.000Z",
