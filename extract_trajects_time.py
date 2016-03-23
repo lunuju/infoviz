@@ -111,16 +111,20 @@ def extract_line(line, start_time, end_time):
         t0 = start_time + timedelta(days=i)
         t1 = start_time + timedelta(days=i+1)
         for direction in [1, 2]:
-            trajs = get_trajects(line['lineNo'], direction, t0, t1)
-            stops = line[str(direction)]
-            for t in trajs:
-                for (t1, idx1), (t2, idx2) in zip(t[:-1], t[1:]):
-                    dt = (t2-t1).total_seconds()
-                    if dt > 6*3600:
-                        continue
-                    record = [t1, t2, line['lineNo'], stops[idx1], stops[idx2]]
-                    cur.execute(query, record)
-                    found += 1
+            try:
+                trajs = get_trajects(line['lineNo'], direction, t0, t1)
+                stops = line[str(direction)]
+                for t in trajs:
+                    for (t1, idx1), (t2, idx2) in zip(t[:-1], t[1:]):
+                        dt = (t2-t1).total_seconds()
+                        if dt > 6*3600:
+                            continue
+                        record = [t1, t2, line['lineNo'], stops[idx1], stops[idx2]]
+                        cur.execute(query, record)
+                        found += 1
+            except:
+                print "Error with line", line['lineNo'], t0, t1
+                traceback.print_exc()
     conn.commit()
     print "Finished line", line['lineNo'], "with", found, "legs"
 
