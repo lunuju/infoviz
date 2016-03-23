@@ -14,8 +14,13 @@ function t2s(t){
     return new Date(t).toISOString()
 }
 
+// String to timestamp (ms)
+function s2t(s){
+    return new Date(s.split()).getTime()
+}
+
 export default class App {
-    constructor(mountPoint){
+    constructor(mountPoint, rangeStart="2016-03-01", rangeEnd="2016-03-08"){
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
             zoom: 12
@@ -26,15 +31,10 @@ export default class App {
         L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
          .addTo(this.map)
         this.features = []
-        this.refresh(t2s(DEFAULT_FROM_TIME), t2s(DEFAULT_TO_TIME))
 
-        mountPoint.find(".range").ionRangeSlider({
+        this.slider = mountPoint.find(".range").ionRangeSlider({
             hide_min_max: true,
             keyboard: true,
-            min: 1449489600000,
-            max: 1457024400000,
-            from: DEFAULT_FROM_TIME,
-            to: DEFAULT_TO_TIME,
             type: 'double',
             step: 3600000,
             grid: true,
@@ -42,18 +42,21 @@ export default class App {
             onFinish: evt => {
                 let from_time = t2s(evt.from)
                 let to_time = t2s(evt.to)
-                let slider = evt.input.data("ionRangeSlider")
-                slider.update({disable: true})
+                this.slider.update({disable: true})
                 this.refresh(from_time, to_time)
-                    .then(() => slider.update({disable: false}))
+                    .then(() => this.slider.update({disable: false}))
             }
-        });
-
-        console.log(`Mounted App on ${mountPoint}`)
+        }).data("ionRangeSlider");
+        this.setRange(rangeStart, rangeEnd)
     }
 
-    sliderChanged(){
-
+    updateSlider(rangeStart, rangeEnd){
+        this.slider.update({
+            min: s2t(rangeStart),
+            max: s2t(rangeEnd),
+            from: s2t(rangeStart),
+            to: s2t(rangeEnd)
+        })
     }
 
     updateMap(legs){
@@ -82,5 +85,10 @@ export default class App {
                 ok()
             })
         })
+    }
+
+    setRange(rangeStart, rangeEnd){
+        this.refresh(rangeStart, rangeEnd)
+        this.updateSlider(rangeStart, rangeEnd)
     }
 }
