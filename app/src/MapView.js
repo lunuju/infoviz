@@ -10,8 +10,14 @@ const DEFAULT_FROM_TIME = 1456819200000
 const DEFAULT_TO_TIME = 1456826400000
 
 // Timestamp to string
-function t2s(t){
-    return new Date(t).toISOString()
+function t2s(timestamp){
+    let t = new Date(timestamp)
+    let year = t.getFullYear(),
+        month = `${t.getMonth()+1}`.rjust(2, '0'),
+        day = `${t.getDate()}`.rjust(2, '0'),
+        hour = `${t.getHours()}`.rjust(2, '0'),
+        minute = `${t.getMinutes()}`.rjust(2, '0');
+    return `${year}-${month}-${day}T${hour}:${minute}`
 }
 
 // String to timestamp (ms)
@@ -36,16 +42,14 @@ export default class MapView {
             hide_min_max: true,
             keyboard: true,
             type: 'double',
-            step: 3600000,
+            step: 1200000,
             grid: true,
             force_edges: true,
             prettify: num => new Date(num).toLocaleString(),
             onFinish: evt => {
                 let from_time = t2s(evt.from)
                 let to_time = t2s(evt.to)
-                this.slider.update({disable: true})
                 this.refresh(from_time, to_time)
-                    .then(() => this.slider.update({disable: false}))
             }
         }).data("ionRangeSlider");
         this.setRange(rangeStart, rangeEnd)
@@ -77,12 +81,14 @@ export default class MapView {
             return new Promise((ok, error) => ok());
         }
         return new Promise((ok, error) => {
+            this.slider.update({disable: true})
             let params = `from_time=${from_time}&to_time=${to_time}`
             $.getJSON(`${API_URL}?${params}`, data => {
                 let legs = data.map(x => new Leg(x)).filter(x => x.isClean())
                 this.updateMap(legs)
                 this.from_time = from_time
                 this.to_time = to_time
+                this.slider.update({disable: false})
                 ok()
             })
         })
