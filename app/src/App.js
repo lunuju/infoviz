@@ -17,11 +17,11 @@ export default class App {
 
         menu.find('.set-left').click(evt => {
             let li = $(evt.target).closest('li')
-            left.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.left.setRange(li.attr('data-from'), li.attr('data-to'))
         })
         menu.find('.set-right').click(evt => {
             let li = $(evt.target).closest('li')
-            right.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.right.setRange(li.attr('data-from'), li.attr('data-to'))
         })
     }
 }

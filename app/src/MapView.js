@@ -38,6 +38,7 @@ export default class MapView {
             type: 'double',
             step: 3600000,
             grid: true,
+            force_edges: true,
             prettify: num => new Date(num).toLocaleString(),
             onFinish: evt => {
                 let from_time = t2s(evt.from)
