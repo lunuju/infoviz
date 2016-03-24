@@ -55,7 +55,9 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Events <span class="caret"></span>
+              </a>
               <ul class="dropdown-menu" id="events-menu">
                 <li data-from="2016-03-17T08:00" data-to="2016-03-18T18:00"><a href="#">
                   European Summit March
@@ -87,17 +89,23 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manual<span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu">
-                  <li>
-                    <div class="container">
-                      <h3>Manual time selection</h3>
-                      <div class="outer-slider">
-                          <input type="text" id="range2" value="" name="range2" />
-                      </div>
-                      <br><br>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Manual <span class="caret"></span>
+              </a>
+               <ul class="dropdown-menu" role="menu">
+                <li>
+                  <div id="slider-menu" class="container">
+                    <h3>Manual time selection</h3>
+                    <div class="outer-slider">
+                        <input type="text" class="slider" />
                     </div>
-                  </li>
+                    <br><br>
+                    <h3>
+                      <a title="Set to left map" href="#" class="label label-info set-left">Left</a>
+                      <a title="Set to right map" href="#" class="label label-warning set-right">Right</a>
+                    </h3>
+                  </div>
+                </li>
               </ul>
             </li>
           </ul>

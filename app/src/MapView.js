@@ -1,6 +1,7 @@
 import Leg from './Leg.js'
 import L from 'leaflet'
 import $ from 'jquery'
+import {t2s, s2t} from './utils.js'
 
 import {loadSlider} from './ion.rangeSlider.js'
 loadSlider($, document, window, navigator)
@@ -9,24 +10,8 @@ const API_URL = "http://infoviz.ititou.be/api"
 const DEFAULT_FROM_TIME = 1456819200000
 const DEFAULT_TO_TIME = 1456826400000
 
-// Timestamp to string
-function t2s(timestamp){
-    let t = new Date(timestamp)
-    let year = t.getFullYear(),
-        month = `${t.getMonth()+1}`.rjust(2, '0'),
-        day = `${t.getDate()}`.rjust(2, '0'),
-        hour = `${t.getHours()}`.rjust(2, '0'),
-        minute = `${t.getMinutes()}`.rjust(2, '0');
-    return `${year}-${month}-${day}T${hour}:${minute}`
-}
-
-// String to timestamp (ms)
-function s2t(s){
-    return new Date(s.split()).getTime()
-}
-
 export default class MapView {
-    constructor(mountPoint, rangeStart="2016-03-01", rangeEnd="2016-03-08"){
+    constructor(mountPoint, rangeStart="2016-03-01", rangeEnd="2016-03-02"){
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
             zoom: 12
@@ -39,7 +24,7 @@ export default class MapView {
         this.features = []
 
         this.slider = mountPoint.find(".range").ionRangeSlider({
-            hide_min_max: true,
+            hide_min_max: false,
             keyboard: true,
             type: 'double',
             step: 1200000,

@@ -2,22 +2,7 @@ import {STIB_STOPS} from './data.js'
 import getColor from './colors.js'
 import GreatCircle from 'great-circle'
 import L from 'leaflet'
-
-String.prototype.rjust = function( length, char ) {
-    var fill = [];
-    while ( fill.length + this.length < length ) {
-        fill[fill.length] = char;
-    }
-    return fill.join('') + this;
-}
-
-String.prototype.ljust = function( length, char ) {
-    var fill = [];
-    while ( fill.length + this.length < length ) {
-        [fill.length] = char;
-    }
-    return this + fill.join('');
-}
+import {t2s, s2t} from './utils.js'
 
 // If stop is defined, return stop, otherwise get stop object from
 // STIB_STOPS given its id.
