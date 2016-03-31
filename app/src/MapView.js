@@ -37,15 +37,15 @@ export default class MapView {
                 this.refresh(from_time, to_time)
             }
         }).data("ionRangeSlider");
-        this.setRange(rangeStart, rangeEnd)
+        this.setRange(rangeStart, rangeEnd, rangeStart, rangeEnd)
     }
 
-    updateSlider(rangeStart, rangeEnd){
+    updateSlider(rangeMin, rangeMax, rangeFrom, rangeTo){
         this.slider.update({
-            min: s2t(rangeStart),
-            max: s2t(rangeEnd),
-            from: s2t(rangeStart),
-            to: s2t(rangeEnd)
+            min: s2t(rangeMin),
+            max: s2t(rangeMax),
+            from: s2t(rangeFrom),
+            to: s2t(rangeTo)
         })
     }
 
@@ -79,8 +79,8 @@ export default class MapView {
         })
     }
 
-    setRange(rangeStart, rangeEnd){
-        this.refresh(rangeStart, rangeEnd)
-        this.updateSlider(rangeStart, rangeEnd)
+    setRange(rangeMin, rangeMax, rangeFrom, rangeTo){
+        this.refresh(rangeFrom, rangeTo)
+        this.updateSlider(rangeMin, rangeMax,rangeFrom,rangeTo)
     }
 }

@@ -43,14 +43,13 @@ export default class App {
             $(li).prepend('<span title="Set to right map" class="label label-warning set-right">Right</span>&nbsp;')
             $(li).prepend('<span title="Set to left map" class="label label-info set-left">Left</span>&nbsp;')
         })
-
         menu.find('.set-left').click(evt => {
             let li = $(evt.target).closest('li')
-            this.left.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.left.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
         menu.find('.set-right').click(evt => {
             let li = $(evt.target).closest('li')
-            this.right.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.right.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
     }
 }
