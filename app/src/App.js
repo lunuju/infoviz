@@ -26,11 +26,11 @@ export default class App {
         }).data("ionRangeSlider");
         menu.find('.set-left').click(evt => {
             let t = this.slider.options.from
-            this.left.setRange(t2s(t-86400000), t2s(t+86400000))
+            this.left.setRange(t2s(t-86400000), t2s(t+86400000), t2s(t-86400000), t2s(t+86400000))
         })
         menu.find('.set-right').click(evt => {
             let t = this.slider.options.from
-            this.right.setRange(t2s(t-86400000), t2s(t+86400000))
+            this.right.setRange(t2s(t-86400000), t2s(t+86400000), t2s(t-86400000), t2s(t+86400000))
         })
         menu.click(evt => {
             evt.stopPropagation();
