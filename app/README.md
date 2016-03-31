@@ -20,4 +20,4 @@ npm install
 
 ## Compile static assets and launch website
 
-`npm build && python api.py`
+`npm run build && python api.py`
