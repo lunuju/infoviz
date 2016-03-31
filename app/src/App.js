@@ -7,6 +7,7 @@ export default class App {
         this.left = new MapView($('#left'))
         this.right = new MapView($('#right'))
         this.makeEventsMenu()
+        this.makeUsualMenu()
         this.makeSliderMenu()
     }
 
@@ -36,9 +37,17 @@ export default class App {
             evt.stopPropagation();
         })
     }
+    makeUsualMenu(){
+        let menu = $('#usual-menu')
+        this.makeOneMenu(menu)
+    }
 
     makeEventsMenu(){
         let menu = $('#events-menu')
+        this.makeOneMenu(menu)
+    }
+
+    makeOneMenu(menu){
         menu.find('a').each((_, li) => {
             $(li).prepend('<span title="Set to right map" class="label label-warning set-right">Right</span>&nbsp;')
             $(li).prepend('<span title="Set to left map" class="label label-info set-left">Left</span>&nbsp;')

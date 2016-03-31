@@ -48,11 +48,19 @@
       </ul> -->
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usual<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Weekend</a></li>
-            <li><a href="#">School holiday</a></li>
-            <li><a href="#">Something else</a></li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Usual <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" id="usual-menu">
+              <li data-min="2016-02-01T00:00" data-max="2016-02-05T23:59" data-from="2016-02-01T08:00" data-to="2016-02-05T18:00"><a href="#">
+                  Weekday
+              </a></li>
+              <li data-min="2016-02-06T00:00" data-max="2016-02-07T23:59" data-from="2016-02-06T08:00" data-to="2016-02-07T18:00"><a href="#">
+                  Weekend
+              </a></li>
+              <li data-min="2015-12-19T08:00" data-max="2016-01-03T18:00" data-from="2015-12-25T08:00" data-to="2016-01-03T18:00"><a href="#">
+                  School holiday
+              </a></li>
           </ul>
         </li>
         <li class="dropdown">
