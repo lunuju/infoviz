@@ -32,6 +32,9 @@ export default class App {
             let t = this.slider.options.from
             this.right.setRange(t2s(t-86400000), t2s(t+86400000))
         })
+        menu.click(evt => {
+            evt.stopPropagation();
+        })
     }
 
     makeEventsMenu(){
