@@ -13,6 +13,23 @@ function getStop(stop_id, stop){
     return STIB_STOPS[`${stop_id}`.rjust(4, '0')]
 }
 
+function pluralize(n, singular, plural){
+    if (Math.abs(n) > 1){
+        return plural
+    }
+    return singular
+}
+
+function pluralizeMinutes(seconds){
+    let m = Math.round(seconds/60, 1)
+    return `${m} ${pluralize(m, 'minute', 'minutes')}`
+}
+
+function pluralizeVehicles(n){
+    let v = Math.round(n)
+    return `${v} ${pluralize(v, 'vehicle', 'vehicles')}`
+}
+
 // A Leg is a link between 2 stops. A Line is made of consecutive legs,
 // but a leg could belong to multiple lines
 export default class Leg {
@@ -52,6 +69,19 @@ export default class Leg {
         ]
     }
 
+    popupContent(){
+        return `<h4>${this.fromStop.name} to ${this.toStop.name}</h4>
+                <h5>Frequency <small>
+                    ${pluralizeVehicles(this.count)} in time frame
+                    (${pluralizeVehicles(this.per_hour)} per hour in average)
+                </small></h5>
+                <h5>Travel time <small>
+                    ${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}
+                    (${pluralizeMinutes(this.avg_time)} in average)
+                </small></h5>
+                <h5>Distance <small>${Math.round(this.distance(), 2)} km</small></h5>`
+    }
+
     toLeaflet(){
         let style = {
             // Colorscale: 0 to 15min to ride 1km
@@ -60,6 +90,8 @@ export default class Leg {
             weight: 2*Math.log(this.per_hour)
         }
         return L.polyline(this.latLng(), style)
+                .bindPopup(this.popupContent())
+                .on('click', evt => evt.target.openPopup())
     }
 
     toString(){
