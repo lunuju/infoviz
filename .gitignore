@@ -3,6 +3,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# IDE
+.idea
+
+# NPM modules et compiled files
+app/node_modules/
+app/static/app.js
+app/static/app.js.map
+
+# VE
+app/ve/
+
+
 # C extensions
 *.so
 

@@ -7,6 +7,7 @@ export default class App {
         this.left = new MapView($('#left'))
         this.right = new MapView($('#right'))
         this.makeEventsMenu()
+        this.makeUsualMenu()
         this.makeSliderMenu()
     }
 
@@ -26,28 +27,38 @@ export default class App {
         }).data("ionRangeSlider");
         menu.find('.set-left').click(evt => {
             let t = this.slider.options.from
-            this.left.setRange(t2s(t-86400000), t2s(t+86400000))
+            this.left.setRange(t2s(t-86400000), t2s(t+86400000), t2s(t-86400000), t2s(t+86400000))
         })
         menu.find('.set-right').click(evt => {
             let t = this.slider.options.from
-            this.right.setRange(t2s(t-86400000), t2s(t+86400000))
+            this.right.setRange(t2s(t-86400000), t2s(t+86400000), t2s(t-86400000), t2s(t+86400000))
         })
+        menu.click(evt => {
+            evt.stopPropagation();
+        })
+    }
+    makeUsualMenu(){
+        let menu = $('#usual-menu')
+        this.makeOneMenu(menu)
     }
 
     makeEventsMenu(){
         let menu = $('#events-menu')
+        this.makeOneMenu(menu)
+    }
+
+    makeOneMenu(menu){
         menu.find('a').each((_, li) => {
             $(li).prepend('<span title="Set to right map" class="label label-warning set-right">Right</span>&nbsp;')
             $(li).prepend('<span title="Set to left map" class="label label-info set-left">Left</span>&nbsp;')
         })
-
         menu.find('.set-left').click(evt => {
             let li = $(evt.target).closest('li')
-            this.left.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.left.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
         menu.find('.set-right').click(evt => {
             let li = $(evt.target).closest('li')
-            this.right.setRange(li.attr('data-from'), li.attr('data-to'))
+            this.right.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
     }
 }

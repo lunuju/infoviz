@@ -1,138 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Information visualisation project">
-    <meta name="author" content="">
-    <!-- <link rel="icon" href="poney/favicon.ico"> -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="Information visualisation project">
+  <meta name="author" content="">
+  <!-- <link rel="icon" href="poney/favicon.ico"> -->
 
-    <title>Infoviz : Mobility in Brussels</title>
+  <title>Infoviz : Mobility in Brussels</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
-    <link href="app/css/mainapp.css" rel="stylesheet">
+  <!-- Custom styles for this page -->
+  <link href="app/css/mainapp.css" rel="stylesheet">
 
-    <!-- slider -->
-    <link rel="stylesheet" href="slider/css/normalize.css" />
-    <link rel="stylesheet" href="slider/css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <style type="text/css">
+  <!-- slider -->
+  <link rel="stylesheet" href="slider/css/normalize.css" />
+  <link rel="stylesheet" href="slider/css/ion.rangeSlider.css" />
+  <link rel="stylesheet" href="slider/css/ion.rangeSlider.skinFlat.css" />
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <style type="text/css">
     .map {min-height: 400px;}
-    </style>
-  </head>
+  </style>
+</head>
 
-  <body>
+<body>
 
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Mobility in Brussels</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">UselessButtonForNow</a></li>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Mobility in Brussels</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <!--
+      <ul class="nav navbar-nav">
+        <li><a href="#">UselessButtonForNow</a></li>
+      </ul> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Usual <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" id="usual-menu">
+              <li data-min="2016-02-01T00:00" data-max="2016-02-05T23:59" data-from="2016-02-01T08:00" data-to="2016-02-05T18:00"><a href="#">
+                  Weekday
+              </a></li>
+              <li data-min="2016-02-06T00:00" data-max="2016-02-07T23:59" data-from="2016-02-06T08:00" data-to="2016-02-07T18:00"><a href="#">
+                  Weekend
+              </a></li>
+              <li data-min="2015-12-19T08:00" data-max="2016-01-03T18:00" data-from="2015-12-25T08:00" data-to="2016-01-03T18:00"><a href="#">
+                  School holiday
+              </a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usual<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Weekend</a></li>
-                <li><a href="#">School holiday</a></li>
-                <li><a href="#">Something else</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Events <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" id="events-menu">
-                <li data-from="2016-03-17T08:00" data-to="2016-03-18T18:00"><a href="#">
-                  European Summit March
-                </a></li>
-                <li data-from="2016-03-15T07:00" data-to="2016-03-15T22:30"><a href="#">
-                  Forest Lockdown
-                </a></li>
-                <li data-from="2016-03-07T08:00" data-to="2016-03-07T18:00"><a href="#">
-                  Turkey Summit
-                </a></li>
-                <li data-from="2016-03-05T19:00" data-to="2016-03-06T01:00"><a href="#">
-                  Museum Night Fever
-                </a></li>
-                <li data-from="2016-02-22T15:00" data-to="2016-02-22T20:00"><a href="#">
-                  Car in Subway
-                </a></li>
-                <li data-from="2016-02-17T08:00" data-to="2016-02-18T18:00"><a href="#">
-                  European Summit Feb
-                </a></li>
-                <li data-from="2015-12-17T08:00" data-to="2015-12-18T18:00"><a href="#">
-                  European Council Dec
-                </a></li>
-                <li data-from="2016-01-13T08:00" data-to="2016-01-31T18:00"><a href="#">
-                  Louiza Tunnel Closing
-                </a></li>
-                <li data-from="2016-03-22T05:00" data-to="2016-03-22T15:00"><a href="#">
-                  Terrorist attacks
-                </a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                Manual <span class="caret"></span>
-              </a>
-               <ul class="dropdown-menu" role="menu">
-                <li>
-                  <div id="slider-menu" class="container">
-                    <h3>Manual time selection</h3>
-                    <div class="outer-slider">
-                        <input type="text" class="slider" />
-                    </div>
-                    <br><br>
-                    <h3>
-                      <a title="Set to left map" href="#" class="label label-info set-left">Left</a>
-                      <a title="Set to right map" href="#" class="label label-warning set-right">Right</a>
-                    </h3>
-                  </div>
-                </li>
-              </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Events <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" id="events-menu">
+            <li data-min="2016-03-17T08:00" data-max="2016-03-18T18:00" data-from="2016-03-17T08:00" data-to="2016-03-18T18:00"><a href="#">
+              European Summit March
+            </a></li>
+            <li data-min="2016-03-15T07:00" data-max="2016-03-15T22:30" data-from="2016-03-15T07:00" data-to="2016-03-15T22:30"><a href="#">
+              Forest Lockdown
+            </a></li>
+            <li data-min="2016-03-07T08:00" data-max="2016-03-07T18:00" data-from="2016-03-07T08:00" data-to="2016-03-07T18:00"><a href="#">
+              Turkey Summit
+            </a></li>
+            <li data-min="2016-03-05T19:00" data-max="2016-03-06T01:00" data-from="2016-03-05T19:00" data-to="2016-03-06T01:00"><a href="#">
+              Museum Night Fever
+            </a></li>
+            <li data-min="2016-02-22T15:00" data-max="2016-02-22T20:00" data-from="2016-02-22T15:00" data-to="2016-02-22T20:00"><a href="#">
+              Car in Subway
+            </a></li>
+            <li data-min="2016-02-17T08:00" data-max="2016-02-18T18:00" data-from="2016-02-17T08:00" data-to="2016-02-18T18:00"><a href="#">
+              European Summit Feb
+            </a></li>
+            <li data-min="2015-12-17T08:00" data-max="2015-12-18T18:00" data-from="2015-12-17T08:00" data-to="2015-12-18T18:00"><a href="#">
+              European Council Dec
+            </a></li>
+            <li data-min="2016-01-13T08:00" data-max="2016-01-31T18:00" data-from="2016-01-13T08:00" data-to="2016-01-31T18:00"><a href="#">
+              Louiza Tunnel Closing
+            </a></li>
+            <li data-min="2016-03-22T05:00" data-max="2016-03-22T15:00" data-from="2016-03-22T09:15" data-to="2016-03-22T10:15"><a href="#">
+              Terrorist attacks
+            </a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            Manual <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <div id="slider-menu" class="container">
+                <h3>Manual time selection</h3>
+                <br><br>
+                <div class="outer-slider">
+                  <input type="text" class="slider" />
+                </div>
+                <br><br>
+                  <h3>
+                    <a title="Set to left map" href="#" class="label label-info set-left">Left</a>
+                    <a title="Set to right map" href="#" class="label label-warning set-right">Right</a>
+                  </h3>
+              </div>
             </li>
           </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div id="left" class="col-xs-6">
-            <div class="label label-info">Left map</div>
-            <div class="map"></div>
-            <div class="outer-slider">
-                <input type="text" class="range" value="" name="range" />
-            </div>
-        </div>
-        <div id="right" class="col-xs-6">
-          <div class="label label-warning">Right map</div>
-            <div class="map"></div>
-            <div class="outer-slider">
-                <input type="text" class="range" value="" name="range" />
-            </div>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div id="left" class="col-xs-6">
+      <div class="label label-info">Left map</div>
+      <div class="map"></div>
+      <div class="outer-slider">
+        <input type="text" class="range" value="" name="range" />
       </div>
-    </div> <!-- /container -->
+    </div>
+    <div id="right" class="col-xs-6">
+      <div class="label label-warning">Right map</div>
+      <div class="map"></div>
+      <div class="outer-slider">
+        <input type="text" class="range" value="" name="range" />
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
 
-    <script type="text/javascript" src="app.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-  </body>
+<script type="text/javascript" src="app.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>
