@@ -30,6 +30,10 @@ function pluralizeVehicles(n){
     return `${v} ${pluralize(v, 'vehicle', 'vehicles')}`
 }
 
+function icon(name){
+    return `<span class="glyphicon glyphicon-${name}"></span>`
+}
+
 // A Leg is a link between 2 stops. A Line is made of consecutive legs,
 // but a leg could belong to multiple lines
 export default class Leg {
@@ -71,16 +75,21 @@ export default class Leg {
     }
 
     popupContent(){
-        return `<h4>${this.fromStop.name} to ${this.toStop.name}</h4>
-                <h5>Frequency <small>
-                    ${pluralizeVehicles(this.count)} in time frame
-                    (${pluralizeVehicles(this.per_hour)} per hour in average)
-                </small></h5>
-                <h5>Travel time <small>
-                    ${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}
-                    (${pluralizeMinutes(this.avg_time)} in average)
-                </small></h5>
-                <h5>Distance <small>${Math.round(this.distance(), 2)} km</small></h5>`
+        return `<h4>
+                    ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
+                    <small>${Math.round(100*this.distance())/100} km</small>
+                </h4>
+                <h5>${icon('road')} Lines <small>${this.lines.join(', ')}</small></h5>
+                <h5>${icon('stats')} Frequency</h5>
+                <ul>
+                    <li>${pluralizeVehicles(this.count)} in time frame</li>
+                    </li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
+                </ul>
+                <h5>${icon('time')} Travel time</h5>
+                <ul>
+                    <li>${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}</li>
+                    <li>${pluralizeMinutes(this.avg_time)} in average</li>
+                </ul>`
     }
 
     toLeaflet(){
@@ -92,7 +101,6 @@ export default class Leg {
         }
         return L.polyline(this.latLng(), style)
                 .bindPopup(this.popupContent())
-                .on('click', evt => evt.target.openPopup())
     }
 
     toString(){
