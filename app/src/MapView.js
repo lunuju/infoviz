@@ -16,8 +16,11 @@ export default class MapView {
         $('.map').css('height', `${$(window).height()-200}px`)
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
-            zoom: 12
+            maxBounds : [[50.753165, 4.153080], [50.980444, 4.542612]],
+            zoom: 12,
+            minZoom: 10,
         })
+
         // L.tileLayer('https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}@2x.png')
         // L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png')
         // L.tileLayer('http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')
