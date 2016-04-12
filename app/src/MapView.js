@@ -19,6 +19,7 @@ export default class MapView {
             maxBounds : [[50.753165, 4.153080], [50.980444, 4.542612]],
             zoom: 12,
             minZoom: 10,
+            maxZoom: 16
         })
 
         // L.tileLayer('https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}@2x.png')
