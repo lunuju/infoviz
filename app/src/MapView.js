@@ -12,6 +12,7 @@ const DEFAULT_TO_TIME = 1456826400000
 
 export default class MapView {
     constructor(mountPoint, rangeStart="2016-03-01", rangeEnd="2016-03-02"){
+        $('.map').css('height', `${$(window).height()-200}px`)
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
             zoom: 12
