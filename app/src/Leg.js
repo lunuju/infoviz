@@ -83,7 +83,7 @@ export default class Leg {
                 <h5>${icon('stats')} Frequency</h5>
                 <ul>
                     <li>${pluralizeVehicles(this.count)} in time frame</li>
-                    </li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
+                    <li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
                 </ul>
                 <h5>${icon('time')} Travel time</h5>
                 <ul>
