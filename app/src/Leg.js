@@ -39,7 +39,8 @@ export default class Leg {
             'per_hour', // Number of vehicles per hour
             'min_time', // Minimum travel time
             'avg_time', // Average travel time
-            'max_time'  // Maximum travel time
+            'max_time', // Maximum travel time
+            'lines',    // All the lines that pass by this stop
         ]
     }
 

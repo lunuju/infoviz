@@ -34,7 +34,8 @@ def api():
            COUNT(*) / (extract('epoch' from %(to_time)s::timestamp - %(from_time)s::timestamp)/3600) AS per_hour,
            avg(arrival - departure) AS avg_time,
            max(arrival - departure) AS max_time,
-           min(arrival - departure) AS min_time
+           min(arrival - departure) AS min_time,
+           array_agg(distinct(line)) AS lines
     FROM legs
     WHERE departure >= %(from_time)s AND arrival <= %(to_time)s
     GROUP BY from_stop_id, to_stop_id;
