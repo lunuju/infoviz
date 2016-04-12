@@ -11,7 +11,8 @@ const DEFAULT_FROM_TIME = 1456819200000
 const DEFAULT_TO_TIME = 1456826400000
 
 export default class MapView {
-    constructor(mountPoint, rangeStart="2016-03-01", rangeEnd="2016-03-02"){
+    constructor(mountPoint, rangeMin="2016-03-01", rangeMax="2016-03-02",
+                            rangeFrom="2016-03-01 08:00", rangeTo="2016-03-01 10:00"){
         $('.map').css('height', `${$(window).height()-200}px`)
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
@@ -38,7 +39,7 @@ export default class MapView {
                 this.refresh(from_time, to_time)
             }
         }).data("ionRangeSlider");
-        this.setRange(rangeStart, rangeEnd, rangeStart, rangeEnd)
+        this.setRange(rangeMin, rangeMax, rangeFrom, rangeTo)
     }
 
     updateSlider(rangeMin, rangeMax, rangeFrom, rangeTo){
