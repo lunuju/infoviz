@@ -82,8 +82,8 @@ export default class MapView {
         }
         this.lines = L.layerGroup(this.features)
 
-        let ov = this.layerControl.addOverlay(this.lines, "Lines")
-        //L.control.layers(this.baseMaps, overlayMaps).addTo(this.map)
+        this.map.addLayer(this.lines)
+        this.layerControl.addOverlay(this.lines, "Lines")
     }
 
     refresh(from_time, to_time){
