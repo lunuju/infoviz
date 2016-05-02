@@ -10,6 +10,12 @@ export default class App {
         this.makeUsualMenu()
         this.makeRightSliderMenu()
         this.makeLeftSliderMenu()
+        this.showModal()
+    }
+
+    showModal(){
+        let mdl = $('.modal')
+        mdl.modal('show')
     }
 
     makeRightSliderMenu(){
