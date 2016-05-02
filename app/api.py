@@ -4,6 +4,7 @@ import psycopg2 as pg
 from psycopg2.extras import RealDictCursor
 from datetime import timedelta
 from time import time
+from config import DEBUG, Q_CACHE_SIZE
 import json
 
 app = Flask(__name__)
@@ -34,10 +35,11 @@ class QueryCache(object):
                 self.cache.pop(lru)
                 print "\033[1;34mEVICT LRU\033[0m"
             self.cache[key] = [res, time()]
+        self.cache[key][-1] = time()
         return self.cache[key][0]
 
 
-CACHED_QUERIES = QueryCache()
+CACHED_QUERIES = QueryCache(Q_CACHE_SIZE)
 
 
 def cast(a_dict):
@@ -104,4 +106,4 @@ def static_proxy(path):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=DEBUG)
