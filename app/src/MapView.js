@@ -25,8 +25,8 @@ export default class MapView {
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
             maxBounds : [[50.753165, 4.153080], [50.980444, 4.542612]],
-            zoom: 12,
-            minZoom: 10,
+            zoom: 13,
+            minZoom: 11,
             maxZoom: 16,
             layers: grayscale
         })
