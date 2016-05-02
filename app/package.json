@@ -17,6 +17,7 @@
         "colormap": "",
         "jquery": "",
         "leaflet": "",
+        "leaflet-ajax": "",
         "great-circle": ""
     }
 }

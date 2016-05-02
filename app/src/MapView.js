@@ -3,6 +3,8 @@ import L from 'leaflet'
 import $ from 'jquery'
 import {t2s, s2t} from './utils.js'
 
+import 'leaflet-ajax'
+
 import {loadSlider} from './ion.rangeSlider.js'
 loadSlider($, document, window, navigator)
 
@@ -31,17 +33,25 @@ export default class MapView {
             layers: grayscale
         })
 
+        let density = new L.GeoJSON.AJAX("http://infoviz.ititou.be/density-layer.json", {
+            style: feature => feature.properties,
+            pointToLayer: (feature, latlng) => {
+                var icon = L.divIcon({'html': feature.properties.html, 
+                    iconAnchor: [feature.properties.anchor_x, 
+                                 feature.properties.anchor_y], 
+                    className: 'empty'
+                });  // What can I do about empty?
+                return L.marker(latlng, {icon: icon});
+            }
+        })
+        density.addTo(this.map)
+        
         this.baseMaps = {
             "Grayscale": grayscale,
             "Toner": toner
         }
-
-
         this.layerControl = L.control.layers(this.baseMaps).addTo(this.map)
-
-        // L.tileLayer('https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}@2x.png')
-        // L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png')
-        // L.tileLayer('http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')
+        this.layerControl.addOverlay(density, "Stops density")
 
         this.slider = mountPoint.find(".range").ionRangeSlider({
             hide_min_max: false,
