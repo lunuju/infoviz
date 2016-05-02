@@ -3,6 +3,8 @@ import L from 'leaflet'
 import $ from 'jquery'
 import {t2s, s2t} from './utils.js'
 
+import 'leaflet-ajax'
+
 import {loadSlider} from './ion.rangeSlider.js'
 loadSlider($, document, window, navigator)
 
@@ -21,6 +23,8 @@ export default class MapView {
             minZoom: 10,
             maxZoom: 16
         })
+
+        new L.GeoJSON.AJAX("density-layer.geojson").addTo(this.map)
 
         // L.tileLayer('https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}@2x.png')
         // L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png')
