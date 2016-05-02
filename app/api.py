@@ -51,7 +51,7 @@ def api():
         'from_time': request.args.get('from_time', '2016-03-01'),
         'to_time': request.args.get('to_time', '2016-03-03')
     }
-    return sql(query, args, ('from_time' == '2016-03-01 08:00' and 'to_time' == '2016-03-01 10:00'))
+    return sql(query, args, (args['from_time'] == '2016-03-01 08:00' and args['to_time'] == '2016-03-01 10:00'))
 
 
 @app.route("/travel_time")
