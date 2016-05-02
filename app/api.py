@@ -17,15 +17,17 @@ def cast(a_dict):
 
 
 def sql(query, args, cache=False):
-    if cache and 'cache' in g:
-        as_json = g['cache']
-    else:
+    as_json = None
+    if cache:
+        as_json = getattr(g, "cache", None)
+
+    if as_json is None:
         conn = pg.connect(database='delay')
         cur = conn.cursor(cursor_factory=RealDictCursor)
         cur.execute(query, args)
         as_json = json.dumps(map(cast, cur.fetchall()))
         if cache:
-            g['cache'] = as_json
+            g.cache = as_json
 
     response = make_response(as_json)
     response.headers['Content-type'] = 'application/json'
