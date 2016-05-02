@@ -16,22 +16,29 @@ export default class MapView {
     constructor(mountPoint, rangeMin="2016-03-01", rangeMax="2016-03-02",
                             rangeFrom="2016-03-01 08:00", rangeTo="2016-03-01 10:00"){
         $('.map').css('height', `${$(window).height()-200}px`)
+
+        let grayscale = L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
+        let toner = L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png')
+
+        this.features = []
+
+        this.lines = L.layerGroup(this.features)
+
         this.map = L.map(mountPoint.find('.map').get(0), {
             center: [50.85, 4.35],
             maxBounds : [[50.753165, 4.153080], [50.980444, 4.542612]],
             zoom: 12,
             minZoom: 10,
-            maxZoom: 16
+            maxZoom: 16,
+            layers: grayscale
         })
 
         new L.GeoJSON.AJAX("density-layer.geojson").addTo(this.map)
-
-        // L.tileLayer('https://a.tile.thunderforest.com/landscape/{z}/{x}/{y}@2x.png')
-        // L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png')
-        // L.tileLayer('http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg')
-        L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
-         .addTo(this.map)
-        this.features = []
+        this.baseMaps = {
+            "Grayscale": grayscale,
+            "Toner": toner
+        }
+        this.layerControl = L.control.layers(this.baseMaps).addTo(this.map)
 
         this.slider = mountPoint.find(".range").ionRangeSlider({
             hide_min_max: false,
@@ -60,14 +67,20 @@ export default class MapView {
     }
 
     updateMap(legs){
+        this.layerControl.removeLayer(this.lines)
         for (let layer of this.features){
             this.map.removeLayer(layer)
         }
+
         this.features = []
 
         for (let leg of legs){
-            this.features.push(leg.toLeaflet().addTo(this.map))
+            this.features.push(leg.toLeaflet())
         }
+        this.lines = L.layerGroup(this.features)
+
+        this.map.addLayer(this.lines)
+        this.layerControl.addOverlay(this.lines, "Lines")
     }
 
     refresh(from_time, to_time){
