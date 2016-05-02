@@ -33,12 +33,25 @@ export default class MapView {
             layers: grayscale
         })
 
-        new L.GeoJSON.AJAX("density-layer.geojson").addTo(this.map)
+        let density = new L.GeoJSON.AJAX("http://infoviz.ititou.be/density-layer.json", {
+            style: feature => feature.properties,
+            pointToLayer: (feature, latlng) => {
+                var icon = L.divIcon({'html': feature.properties.html, 
+                    iconAnchor: [feature.properties.anchor_x, 
+                                 feature.properties.anchor_y], 
+                    className: 'empty'
+                });  // What can I do about empty?
+                return L.marker(latlng, {icon: icon});
+            }
+        })
+        density.addTo(this.map)
+        
         this.baseMaps = {
             "Grayscale": grayscale,
             "Toner": toner
         }
         this.layerControl = L.control.layers(this.baseMaps).addTo(this.map)
+        this.layerControl.addOverlay(density, "Stops density")
 
         this.slider = mountPoint.find(".range").ionRangeSlider({
             hide_min_max: false,
