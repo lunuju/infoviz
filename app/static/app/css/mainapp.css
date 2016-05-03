@@ -3,6 +3,10 @@ body {
   padding-top: 70px;
 }
 
+.stib-line-icon {
+    width: 24px;
+    height: 24px;
+}
 
 /* D3 graphs */
 .bar rect {

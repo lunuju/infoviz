@@ -84,12 +84,15 @@ export default class Leg {
     }
 
     popupContent(){
+        let lines = this.lines.map(x => `<img class="stib-line-icon" alt=${x} src="http://www.stib-mivb.be/irj/go/km/docs/horaires/Horaires_web_couleur/${x}/images/${x}.gif"/>`)
+                              .join('&nbsp;')
         return `<div>
                     <h4>
                         ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
                         <small>${Math.round(100*this.distance())/100} km</small>
                     </h4>
-                    <h5>${icon('road')} Lines <small>${this.lines.join(', ')}</small></h5>
+                    <h5>${icon('road')} Lines</h5>
+                    ${lines}
                     <h5>${icon('stats')} Frequency</h5>
                     <ul>
                         <li>${pluralizeVehicles(this.count)} in time frame</li>
