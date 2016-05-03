@@ -23,17 +23,17 @@ class QueryCache(object):
     def query(self, query, query_args):
         key = repr([query, query_args])
         if key in self.cache:
-            print "\033[1;32mUSING CACHED VERSION\033[0m"
+            print("\033[1;32mUSING CACHED VERSION\033[0m")
         else:
             cur = self.get_cursor()
             cur.execute(query, query_args)
             res = cur.fetchall()
-            print "\033[1;33mEXECUTE QUERY\033[0m"
+            print("\033[1;33mEXECUTE QUERY\033[0m")
 
             if len(self.cache) == self.max:
                 lru = min(self.cache, key=lambda x: self.cache[x][-1])
                 self.cache.pop(lru)
-                print "\033[1;34mEVICT LRU\033[0m"
+                print("\033[1;34mEVICT LRU\033[0m")
             self.cache[key] = [res, time()]
         self.cache[key][-1] = time()
         return self.cache[key][0]
