@@ -3,43 +3,11 @@ from flask.ext.cors import CORS
 import psycopg2 as pg
 from psycopg2.extras import RealDictCursor
 from datetime import timedelta
-from time import time
-from config import DEBUG, Q_CACHE_SIZE
+from config import DEBUG
 import json
 
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests
-
-
-class QueryCache(object):
-    def __init__(self, max_entries=10):
-        self.max = max_entries
-        self.cache = {}
-
-    def get_cursor(self):
-        conn = pg.connect(database='delay')
-        return conn.cursor(cursor_factory=RealDictCursor)
-
-    def query(self, query, query_args):
-        key = repr([query, query_args])
-        if key in self.cache:
-            print("\033[1;32mUSING CACHED VERSION\033[0m")
-        else:
-            cur = self.get_cursor()
-            cur.execute(query, query_args)
-            res = cur.fetchall()
-            print("\033[1;33mEXECUTE QUERY\033[0m")
-
-            if len(self.cache) == self.max:
-                lru = min(self.cache, key=lambda x: self.cache[x][-1])
-                self.cache.pop(lru)
-                print("\033[1;34mEVICT LRU\033[0m")
-            self.cache[key] = [res, time()]
-        self.cache[key][-1] = time()
-        return self.cache[key][0]
-
-
-CACHED_QUERIES = QueryCache(Q_CACHE_SIZE)
 
 
 def cast(a_dict):
@@ -50,9 +18,12 @@ def cast(a_dict):
 
 
 def sql(query, args, cache=False):
-    ret = CACHED_QUERIES.query(query, args)
-    response = make_response(json.dumps([cast(x) for x in ret]))
+    conn = pg.connect(database='delay')
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+    cur.execute(query, args)
+    response = make_response(json.dumps([cast(x) for x in cur.fetchall()]))
     response.headers['Content-type'] = 'application/json'
+    response.cache_control.max_age = 3600
     return response
 
 
