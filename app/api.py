@@ -43,7 +43,7 @@ CACHED_QUERIES = QueryCache(Q_CACHE_SIZE)
 
 
 def cast(a_dict):
-    for k, v in a_dict.iteritems():
+    for k, v in a_dict.items():
         if isinstance(v, timedelta):
             a_dict[k] = v.total_seconds()
     return a_dict
