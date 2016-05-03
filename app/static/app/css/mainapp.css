@@ -14,8 +14,12 @@ body {
     shape-rendering: crispEdges;
 }
 
+.axis text {
+    color: #777;
+}
+
 .axis path, .axis line {
     fill: none;
-    stroke: #333;
+    stroke: #777;
     shape-rendering: crispEdges;
 }

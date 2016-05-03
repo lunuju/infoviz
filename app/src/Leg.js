@@ -103,7 +103,7 @@ export default class Leg {
                         <li>${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}</li>
                         <li>${pluralizeMinutes(this.avg_time)} in average</li>
                     </ul>
-                    <svg></svg>
+                    <svg width="230" height="100"></svg>
                 </div>`
     }
 
@@ -121,8 +121,6 @@ export default class Leg {
             line.bindPopup(popup)
             line.openPopup()
 
-            let  width = 400,
-                height = 150;
             let params = `from_time=${this.from_time}&to_time=${this.to_time}&` +
                          `from_stop=${this.from_stop_id}&to_stop=${this.to_stop_id}`
             $.getJSON(`${API_URL}?${params}`, res => {
