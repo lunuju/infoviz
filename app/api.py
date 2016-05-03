@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, g
+from flask import Flask, request, make_response
 from flask.ext.cors import CORS
 import psycopg2 as pg
 from psycopg2.extras import RealDictCursor
@@ -54,10 +54,11 @@ def api():
 @app.route("/travel_time")
 def travel_time():
     query = """
-    SELECT array_agg(extract('epoch' FROM (arrival - departure))) AS travel_times
+    SELECT line, array_agg(extract('epoch' FROM (arrival - departure))) AS travel_times
     FROM legs
     WHERE departure >= %(from_time)s AND arrival <= %(to_time)s AND
-          from_stop_id = %(from_stop)s AND to_stop_id = %(to_stop)s;
+          from_stop_id = %(from_stop)s AND to_stop_id = %(to_stop)s
+    GROUP BY line;
     """
     args = {
         'from_time': request.args.get('from_time', '2016-03-01'),
