@@ -1,4 +1,4 @@
-import {STIB_STOPS} from './data.js'
+import {STIB_STOPS, STIB_COLORS} from './data.js'
 import getColor from './colors.js'
 import GreatCircle from 'great-circle'
 import L from 'leaflet'
@@ -84,8 +84,11 @@ export default class Leg {
     }
 
     popupContent(){
-        let lines = this.lines.map(x => `<img class="stib-line-icon" alt=${x} src="http://www.stib-mivb.be/irj/go/km/docs/horaires/Horaires_web_couleur/${x}/images/${x}.gif"/>`)
-                              .join('&nbsp;')
+        let lines = this.lines.map(x => {
+            let style = ['background-color', 'color'].map(a => `${a}: ${STIB_COLORS[x][a]};`).join('')
+            return `<span class="stib-line-icon" style="${style}">${x}</span>`
+        }).join('&nbsp;')
+
         return `<div style="width: 300px">
                     <h4>
                         ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
@@ -118,8 +121,7 @@ export default class Leg {
                          `from_stop=${this.from_stop_id}&to_stop=${this.to_stop_id}`
             $.getJSON(`${API_URL}?${params}`, res => {
                 let svg = d3.select(popup).select('svg')
-                let dataset = res[0].travel_times
-                histogram(svg, dataset)
+                histogram(svg, res)
             })
         })
 

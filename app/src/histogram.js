@@ -1,15 +1,9 @@
 import d3 from 'd3'
+import {STIB_COLORS} from './data.js'
 
-function humanDTime(dt){
-    let minutes = parseInt(dt/60),
-        seconds = dt%60;
-    if (seconds == 0){
-        return `${minutes}m`
-    }
-    return `${minutes}m ${seconds}s`
-}
+export default function histogram(svg, series, nbins=15, W=300, H=100){
+    let values = series.reduce((acc, x) => acc.concat(x.travel_times), [])
 
-export default function histogram(svg, values, nbins=15, W=300, H=100){
     let Vmin = d3.min(values),
         Vmax = 1.1*d3.max(values);
 
@@ -33,6 +27,7 @@ export default function histogram(svg, values, nbins=15, W=300, H=100){
     svg.attr("width", W).attr("height", H)
     svg.append('g')
        .attr('transform', `translate(${margin.left},${margin.top})`)
+
     let bar = svg.selectAll('.bar').data(groups)
                  .enter().append('g')
                          .attr('class', 'bar')
@@ -41,6 +36,7 @@ export default function histogram(svg, values, nbins=15, W=300, H=100){
        .attr('x', d => x(d.x))
        .attr('width', x(groups[0].dx + Vmin) - x(Vmin))
        .attr('height', d => height - y(d.y))
+       .style("fill", STIB_COLORS[series[0].line]['background-color'])
 
     svg.append('g')
        .attr('class', 'x axis')
