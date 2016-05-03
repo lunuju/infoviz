@@ -3,3 +3,4 @@ psycopg2
 tqdm
 requests
 flask-cors
+gunicorn
