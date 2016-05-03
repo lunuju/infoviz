@@ -51,7 +51,7 @@ def cast(a_dict):
 
 def sql(query, args, cache=False):
     ret = CACHED_QUERIES.query(query, args)
-    response = make_response(json.dumps(map(cast, ret)))
+    response = make_response(json.dumps([cast(x) for x in ret]))
     response.headers['Content-type'] = 'application/json'
     return response
 
