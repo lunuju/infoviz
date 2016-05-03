@@ -2,3 +2,16 @@ body {
   min-height: 500px;
   padding-top: 70px;
 }
+
+
+/* D3 graphs */
+.bar rect {
+    fill: steelblue;
+    shape-rendering: crispEdges;
+}
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #333;
+    shape-rendering: crispEdges;
+}

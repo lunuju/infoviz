@@ -3,6 +3,11 @@ import getColor from './colors.js'
 import GreatCircle from 'great-circle'
 import L from 'leaflet'
 import {t2s, s2t} from './utils.js'
+import d3 from 'd3'
+import $ from 'jquery'
+import histogram from './histogram'
+
+const API_URL = "http://infoviz.ititou.be/travel_time"
 
 // If stop is defined, return stop, otherwise get stop object from
 // STIB_STOPS given its id.
@@ -39,6 +44,10 @@ function icon(name){
 export default class Leg {
     static metrics(){
         return [
+            'from_time',
+            'to_time',
+            'from_stop_id',
+            'to_stop_id',
             'count',    // Total number of vehicles in time frame
             'per_hour', // Number of vehicles per hour
             'min_time', // Minimum travel time
@@ -75,21 +84,24 @@ export default class Leg {
     }
 
     popupContent(){
-        return `<h4>
-                    ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
-                    <small>${Math.round(100*this.distance())/100} km</small>
-                </h4>
-                <h5>${icon('road')} Lines <small>${this.lines.join(', ')}</small></h5>
-                <h5>${icon('stats')} Frequency</h5>
-                <ul>
-                    <li>${pluralizeVehicles(this.count)} in time frame</li>
-                    <li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
-                </ul>
-                <h5>${icon('time')} Travel time</h5>
-                <ul>
-                    <li>${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}</li>
-                    <li>${pluralizeMinutes(this.avg_time)} in average</li>
-                </ul>`
+        return `<div>
+                    <h4>
+                        ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
+                        <small>${Math.round(100*this.distance())/100} km</small>
+                    </h4>
+                    <h5>${icon('road')} Lines <small>${this.lines.join(', ')}</small></h5>
+                    <h5>${icon('stats')} Frequency</h5>
+                    <ul>
+                        <li>${pluralizeVehicles(this.count)} in time frame</li>
+                        <li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
+                    </ul>
+                    <h5>${icon('time')} Travel time</h5>
+                    <ul>
+                        <li>${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}</li>
+                        <li>${pluralizeMinutes(this.avg_time)} in average</li>
+                    </ul>
+                    <svg></svg>
+                </div>`
     }
 
     toLeaflet(){
@@ -99,8 +111,25 @@ export default class Leg {
             opacity: 1,
             weight: 2*Math.log(this.per_hour)
         }
-        return L.polyline(this.latLng(), style)
-                .bindPopup(this.popupContent())
+        let line = L.polyline(this.latLng(), style)
+
+        line.on("click", evt => {
+            let popup = $(this.popupContent())[0]
+            line.bindPopup(popup)
+            line.openPopup()
+
+            let  width = 400,
+                height = 150;
+            let params = `from_time=${this.from_time}&to_time=${this.to_time}&` +
+                         `from_stop=${this.from_stop_id}&to_stop=${this.to_stop_id}`
+            $.getJSON(`${API_URL}?${params}`, res => {
+                let svg = d3.select(popup).select('svg')
+                let dataset = res[0].travel_times
+                histogram(svg, dataset)
+            })
+        })
+
+        return line;
     }
 
     toString(){

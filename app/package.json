@@ -18,6 +18,7 @@
         "jquery": "",
         "leaflet": "",
         "leaflet-ajax": "",
-        "great-circle": ""
+        "great-circle": "",
+        "d3": ""
     }
 }
