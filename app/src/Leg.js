@@ -86,24 +86,17 @@ export default class Leg {
     popupContent(){
         let lines = this.lines.map(x => `<img class="stib-line-icon" alt=${x} src="http://www.stib-mivb.be/irj/go/km/docs/horaires/Horaires_web_couleur/${x}/images/${x}.gif"/>`)
                               .join('&nbsp;')
-        return `<div>
+        return `<div style="width: 300px">
                     <h4>
                         ${this.fromStop.name} ${icon('arrow-right')} ${this.toStop.name}
                         <small>${Math.round(100*this.distance())/100} km</small>
                     </h4>
-                    <h5>${icon('road')} Lines</h5>
                     ${lines}
-                    <h5>${icon('stats')} Frequency</h5>
-                    <ul>
-                        <li>${pluralizeVehicles(this.count)} in time frame</li>
-                        <li>${pluralizeVehicles(this.per_hour)} per hour in average</li>
-                    </ul>
-                    <h5>${icon('time')} Travel time</h5>
-                    <ul>
-                        <li>${pluralizeMinutes(this.min_time)} to ${pluralizeMinutes(this.max_time)}</li>
-                        <li>${pluralizeMinutes(this.avg_time)} in average</li>
-                    </ul>
-                    <svg width="230" height="100"></svg>
+                    <h5>${icon('stats')} Frequency: ${parseInt(this.per_hour)}/h</h5>
+                    <h5>${icon('time')} Avg travel time: ${pluralizeMinutes(this.avg_time)}</h5>
+                    <svg width="0" height="100"></svg>
+                    <hr/>
+                    ${pluralizeVehicles(this.count)} in time frame
                 </div>`
     }
 

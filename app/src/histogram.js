@@ -9,7 +9,7 @@ function humanDTime(dt){
     return `${minutes}m ${seconds}s`
 }
 
-export default function histogram(svg, values, nbins=15, W=250, H=100){
+export default function histogram(svg, values, nbins=15, W=300, H=100){
     let Vmin = d3.min(values),
         Vmax = 1.1*d3.max(values);
 
