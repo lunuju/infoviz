@@ -119,4 +119,11 @@ export default class MapView {
         this.refresh(rangeFrom, rangeTo)
         this.updateSlider(rangeMin, rangeMax,rangeFrom,rangeTo)
     }
+
+    setBound(longitudeMin, longitudeMax, latitudeMin, latitudeMax){
+        this.map.fitBounds([
+            [latitudeMin, longitudeMin],
+            [latitudeMax, longitudeMax]
+        ])
+    }
 }
