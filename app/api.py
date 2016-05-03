@@ -61,6 +61,8 @@ def api():
     query = """
     SELECT from_stop_id,
            to_stop_id,
+           %(from_time)s as from_time,
+           %(to_time)s as to_time,
            COUNT(*) AS count,
            COUNT(*) / (extract('epoch' from %(to_time)s::timestamp - %(from_time)s::timestamp)/3600) AS per_hour,
            avg(arrival - departure) AS avg_time,
