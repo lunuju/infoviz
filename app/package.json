@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "devserver": "webpack-dev-server --progress --colors",
+        "watch": "webpack --watch --progress --output-file app.js",
         "build": "webpack --progress --output-file app.js",
         "build-prod": "webpack --progress --optimize-minimize --optimize-dedupe --optimize-occurence-order --output-file app.min.js"
     },
