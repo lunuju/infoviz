@@ -30,6 +30,10 @@ function pluralizeMinutes(seconds){
     return `${m} ${pluralize(m, 'minute', 'minutes')}`
 }
 
+function formatTime(seconds){
+    return `${parseInt(seconds/60)}:${parseInt(seconds%60)}`
+}
+
 function pluralizeVehicles(n){
     let v = Math.round(n)
     return `${v} ${pluralize(v, 'vehicle', 'vehicles')}`
@@ -96,8 +100,8 @@ export default class Leg {
                     </h4>
                     ${lines}
                     <h5>${icon('stats')} Frequency: ${parseInt(this.per_hour)}/h</h5>
-                    <h5>${icon('time')} Avg travel time: ${pluralizeMinutes(this.avg_time)}</h5>
-                    <svg width="0" height="100"></svg>
+                    <h5>${icon('time')} Avg travel time: ${formatTime(this.avg_time)}</h5>
+                    <svg width="0" height="150"></svg>
                     <hr/>
                     ${pluralizeVehicles(this.count)} in time frame
                 </div>`
