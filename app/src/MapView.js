@@ -34,7 +34,11 @@ export default class MapView {
         })
 
         let density = new L.GeoJSON.AJAX("http://infoviz.ititou.be/density-layer.json", {
-            style: feature => feature.properties,
+            style: feature => {
+                let res = feature.properties
+                res.clickable = false
+                return res
+            },
             pointToLayer: (feature, latlng) => {
                 var icon = L.divIcon({'html': feature.properties.html, 
                     iconAnchor: [feature.properties.anchor_x, 
