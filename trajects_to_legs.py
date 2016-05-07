@@ -1,5 +1,7 @@
 """
-Tool to convert dumps of the trajects table from C4ptainCrunch's database
+Tool to convert dumps of the trajects table from C4ptainCrunch's database,
+and insert them as legs in our database (in a separate table for atomic
+updates of the application API database).
 """
 
 import json
@@ -33,7 +35,7 @@ def insert_legs(rows):
 
 
 def extract_traject(id, line, way, stops, departure):
-    line_stops = stib_lines.get(int(line), {}).get(way, None)
+    line_stops = stib_lines.get(int(line), {}).get(way, None)[1:]
     if not line_stops:
         return
     stop_times = filter(lambda x: x != '"', stops).split(',')
