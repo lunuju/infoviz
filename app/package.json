@@ -20,6 +20,7 @@
         "leaflet": "",
         "leaflet-ajax": "",
         "great-circle": "",
-        "d3": ""
+        "d3": "",
+        "moment": ""
     }
 }
