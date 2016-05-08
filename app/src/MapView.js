@@ -51,8 +51,8 @@ export default class MapView {
         density.addTo(this.map)
         
         this.baseMaps = {
-            "Grayscale": grayscale,
-            "Toner": toner
+            "Base map: low contrast": grayscale,
+            "Base map: high contrast": toner
         }
         this.layerControl = L.control.layers(this.baseMaps).addTo(this.map)
         this.layerControl.addOverlay(density, "Stops density")
