@@ -82,6 +82,7 @@ export default class App {
         menu.find('.set-right').click(evt => {
             let li = $(evt.target).closest('li')
             this.right.setBound(li.attr('longitude-min'), li.attr('longitude-max'), li.attr('latitude-min'), li.attr('latitude-max'))
+            this.left.setBound(li.attr('longitude-min'), li.attr('longitude-max'), li.attr('latitude-min'), li.attr('latitude-max'))
             this.right.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
     }
@@ -90,6 +91,7 @@ export default class App {
         menu.find('.set-left').click(evt => {
             let li = $(evt.target).closest('li')
             this.left.setBound(li.attr('longitude-min'), li.attr('longitude-max'), li.attr('latitude-min'), li.attr('latitude-max'))
+            this.right.setBound(li.attr('longitude-min'), li.attr('longitude-max'), li.attr('latitude-min'), li.attr('latitude-max'))
             this.left.setRange(li.attr('data-min'), li.attr('data-max'), li.attr('data-from'), li.attr('data-to'))
         })
 
