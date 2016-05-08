@@ -41,7 +41,9 @@ def api():
            min(arrival - departure) AS min_time,
            array_agg(distinct(line)) AS lines
     FROM legs
-    WHERE departure >= %(from_time)s AND arrival <= %(to_time)s
+    WHERE departure >= %(from_time)s AND arrival <= %(to_time)s AND
+          from_stop_id > '0' AND from_stop_id < '10000' AND
+          to_stop_id > '0' AND to_stop_id < '10000' AND
     GROUP BY from_stop_id, to_stop_id;
     """
     args = {
