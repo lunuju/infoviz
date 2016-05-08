@@ -1,3 +1,3 @@
 Visualize STIB network fluidity and density.
 
-![Screenshot](app/static/screenshot.png)
+![Screenshot](app/static/onemap.png)
