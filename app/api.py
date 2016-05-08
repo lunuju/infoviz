@@ -43,7 +43,7 @@ def api():
     FROM legs
     WHERE departure >= %(from_time)s AND arrival <= %(to_time)s AND
           from_stop_id > '0' AND from_stop_id < '10000' AND
-          to_stop_id > '0' AND to_stop_id < '10000' AND
+          to_stop_id > '0' AND to_stop_id < '10000'
     GROUP BY from_stop_id, to_stop_id;
     """
     args = {
