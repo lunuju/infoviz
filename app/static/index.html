@@ -316,45 +316,48 @@
                                 <p>This map present 3 layers: a base map (topology), the geographical STIB stops density (colored area), and the STIB flow (colored lines on top). You can change the displayed layers using the upper-right button. You can also navigate the map as in other traditional map-based applications.</p>
                                 <p>Below the map, a two-sided datetime range picker allows you to explore different time windows. When the datetime range changes, the STIB flow layer changes accordingly</p>
                         
-                                <h4>Stops density</h4>
+                                <h4>Area : Stops density</h4>
                                 <p>The density of STIB stops in Brussels has been computed using a gaussian <a target="_blank" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimation</a>. Low densities <i>(places where there are not many, or not any stops around)</i> are red, average densities in blue and high densities <i>(places with lots of STIB stops around)</i> in yellow.</p>
 
-                                <h4>Vehicle speed</h4>
+                                <h4>Line : Vehicle speed</h4>
                                 <p>The color of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.</p>
 
                                 <p>The color scale goes from <b style="color: #d7191c;">red: 15min</b> or more to ride 1km to <b style="color: #1a9641;">green: 0min</b> to ride 1km</p>
 
-                                <h4>Vehicle frequency</h4>
                                 <p>The <b>thickness</b> of the lines indicate how many vehicles per hour in avergae passed by this section (again, in the selected time frame)</p>
                             </div>
                         </div>
-                        <hr class="star-primary">
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-8">
                                 <h3>Detailled informations</h3>
                                 <p>If you click on a line, a popup opens and displays detailled information about a section between 2 stops.</p>
+                                <p><b>Ah ha!</b> In the histogram on the right, we can see that the 7 is going faster on that traject than the 3.</p>
                             </div>
                             <div class="col-md-4">
                                 <img src="popup.png" class="img-responsive img-centered" alt="">
                             </div>
                         </div>
 
-                        <hr class="star-primary">
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <h3>Jumping in time</h3>
+                                <h3>Events and time selection</h3>
                                 <img src="topbar.png" class="img-responsive img-centered" alt="">
+                                <p>Above we can choose for the map, an average moment, a detailled event or manually a precise moment in the time</p>
                             </div>
                             <div class="col-md-6">
-                                <h3>Brussels attack video</h3>
+                                <h3>Brussels attack time-lapse</h3>
                                 <iframe width="400" height="270" src="https://www.youtube.com/embed/AYUUIuFdxvc" frameborder="0" allowfullscreen></iframe>
+                                <p>Above on the timelapse video, you can witness the 22 march recall of public transportation</p>
                             </div>
                         </div>
-                        
 
+                        <hr>
                         <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">I want to try !</button>
+                        <hr>
                     </div>
                 </div>
             </div>
