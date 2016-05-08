@@ -38,7 +38,7 @@
             box-shadow: none;
             border: none;
             min-height: 100%;
-            padding: 100px 0;
+            padding: 70px 0;
             text-align: center;
             opacity:0.9 !important;
         }
@@ -90,6 +90,33 @@
         .wel-modal .modal-backdrop {
             opacity: 0;
             display: none;
+        }
+        .button-help-position {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 45px;
+            opacity:0.8; /* sinon couleur noire agressive */
+        }
+        .image-hover-bigger {
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-hover-bigger img {
+            -webkit-transition: all 1s ease; /* Safari and Chrome */
+            -moz-transition: all 1s ease; /* Firefox */
+            -ms-transition: all 1s ease; /* IE 9 */
+            -o-transition: all 1s ease; /* Opera */
+            transition: all 1s ease;
+        }
+
+        .image-hover-bigger:hover img {
+            -webkit-transform:scale(2); /* Safari and Chrome */
+            -moz-transform:scale(2); /* Firefox */
+            -ms-transform:scale(2); /* IE 9 */
+            -o-transform:scale(2); /* Opera */
+            transform:scale(2);
         }
     </style>
 </head>
@@ -268,65 +295,77 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="modal-body">
-                        <h2>Mobility in brussels<br><small>A comparison tool</small></h2>
-                        <p>In this interactive visualization, you can explore the past few months of the STIB network flow and relate it to the stops density and major events in Brussels.</p>
+                        <h2>Mobility in brussels<br><small>An interactive comparison tool</small></h2>
+                        <h4>Explore the STIB network flow of the past few months and relate it to the stops density and major events in Brussels.</h4>
                         <hr class="star-primary">
                         
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="screenshot.png" class="img-responsive img-centered" alt="">
+                                <div class="image-hover-bigger">
+                                    <img src="comparison.png" class="img-responsive img-centered" alt="">
+                                </div>
+                                <div class="image-hover-bigger">
+                                <img src="onemap.png" class="img-responsive img-centered" alt="">
+                                </div>
+                                <div class="image-hover-bigger">
+                                <img src="layer-selection.png" class="img-responsive img-centered" alt="">
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <h3>Map view</h3>
                                 <p>This map present 3 layers: a base map (topology), the geographical STIB stops density (colored area), and the STIB flow (colored lines on top). You can change the displayed layers using the upper-right button. You can also navigate the map as in other traditional map-based applications.</p>
                                 <p>Below the map, a two-sided datetime range picker allows you to explore different time windows. When the datetime range changes, the STIB flow layer changes accordingly</p>
                         
-                                <h4>Stops density</h4>
+                                <h4>Area : Stops density</h4>
                                 <p>The density of STIB stops in Brussels has been computed using a gaussian <a target="_blank" href="https://en.wikipedia.org/wiki/Kernel_density_estimation">kernel density estimation</a>. Low densities <i>(places where there are not many, or not any stops around)</i> are red, average densities in blue and high densities <i>(places with lots of STIB stops around)</i> in yellow.</p>
 
-                                <h4>Vehicle speed</h4>
+                                <h4>Line : Vehicle speed</h4>
                                 <p>The color of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.</p>
 
                                 <p>The color scale goes from <b style="color: #d7191c;">red: 15min</b> or more to ride 1km to <b style="color: #1a9641;">green: 0min</b> to ride 1km</p>
 
-                                <h4>Vehicle frequency</h4>
                                 <p>The <b>thickness</b> of the lines indicate how many vehicles per hour in avergae passed by this section (again, in the selected time frame)</p>
                             </div>
                         </div>
-                        <hr class="star-primary">
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-8">
                                 <h3>Detailled informations</h3>
                                 <p>If you click on a line, a popup opens and displays detailled information about a section between 2 stops.</p>
+                                <p><b>Ah ha!</b> In the histogram on the right, we can see that the 7 is going faster on that traject than the 3.</p>
                             </div>
                             <div class="col-md-4">
                                 <img src="popup.png" class="img-responsive img-centered" alt="">
                             </div>
                         </div>
 
-                        <hr class="star-primary">
+                        <hr>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <h3>Jumping in time</h3>
+                                <h3>Events and time selection</h3>
                                 <img src="topbar.png" class="img-responsive img-centered" alt="">
+                                <p>Above we can choose for the map, an average moment, a detailled event or manually a precise moment in the time</p>
                             </div>
                             <div class="col-md-6">
-                                <h3>Brussels attack video</h3>
+                                <h3>Brussels attack time-lapse</h3>
+                                <iframe width="400" height="270" src="https://www.youtube.com/embed/AYUUIuFdxvc" frameborder="0" allowfullscreen></iframe>
+                                <p>Above on the timelapse video, you can witness the 22 march recall of public transportation</p>
                             </div>
                         </div>
-                        
 
+                        <hr>
                         <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal">I want to try !</button>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid">
-    <a class="btn btn-default pull-right" data-toggle="modal" href="#welcome-modal" >?</a>
+<div class="container button-help-position">
+    <a class="btn btn-default pull-right" data-toggle="modal" href="#welcome-modal" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Help</a>
 </div>
 
 <script type="text/javascript" src="app.js"></script>
