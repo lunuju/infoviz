@@ -2,6 +2,10 @@ import $ from 'jquery'
 import MapView from './MapView.js'
 import {t2s, s2t} from './utils.js'
 
+/* Timestamp range available in the database, in ms */
+const DATABASE_MIN_TIME = 1449442800000
+const DATABASE_MAX_TIME = 1461967200000
+
 export default class App {
     constructor(){
         this.left = new MapView($('#left'))
@@ -26,9 +30,9 @@ export default class App {
             step: 86400000,
             grid: true,
             force_edges: true,
-            min: 1449442800000,
-            max: 1458687600000,
-            from: (1458687600000 + 1449442800000)/2,
+            min: DATABASE_MIN_TIME,
+            max: DATABASE_MAX_TIME,
+            from: (DATABASE_MIN_TIME + DATABASE_MAX_TIME)/2,
             prettify: num => new Date(num).toLocaleString(),
             onFinish: evt => {}
         }).data("ionRangeSlider");
