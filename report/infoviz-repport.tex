@@ -74,14 +74,21 @@ We use Leaflet\footnote{\url{http://leafletjs.com/}} as map engine, the Ion Rang
 
 \subsection{Modal}
 
-To ease the way for users unfamiliar with the visualization, we created a modal. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
+We created a modal to ease the way for unfamiliar users with our visualization. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
+
+\todo{image}
 
 \subsection{Map view}
 
 \subsubsection{Stop density}
 
-
 \subsubsection{Lines}
+The color of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.
+
+The color scale goes from red when the transport take 15min or more to ride 1km to green when it takes 0min to ride 1km
+
+The thickness of the lines indicate how many vehicles per hour in avergae passed by this section (again, in the selected time frame)
+
 
 \subsection{Detailed view}
 
