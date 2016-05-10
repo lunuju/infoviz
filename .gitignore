@@ -5,6 +5,7 @@ __pycache__/
 
 # IDE
 .idea
+*.texpadtmp
 
 # NPM modules et compiled files
 app/node_modules/
