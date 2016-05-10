@@ -2,6 +2,7 @@ import Leg from './Leg.js'
 import L from 'leaflet'
 import $ from 'jquery'
 import {t2s, s2t} from './utils.js'
+import moment from 'moment'
 
 import 'leaflet-ajax'
 
@@ -14,7 +15,8 @@ const DEFAULT_TO_TIME = 1456826400000
 
 export default class MapView {
     constructor(mountPoint, rangeMin="2016-03-01", rangeMax="2016-03-02",
-                            rangeFrom="2016-03-01 08:00", rangeTo="2016-03-01 10:00"){
+                            rangeFrom="2016-03-01 08:00", rangeTo="2016-03-01 10:00",
+                            title=""){
         $('.map').css('height', `${$(window).height()-200}px`)
 
         let grayscale = L.tileLayer('http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
@@ -70,10 +72,17 @@ export default class MapView {
                 let to_time = t2s(evt.to)
                 this.refresh(from_time, to_time)
             }
-        }).data("ionRangeSlider");
+        }).data("ionRangeSlider")
+
+        this.title = mountPoint.find('.title')
         this.setRange(rangeMin, rangeMax, rangeFrom, rangeTo)
     }
 
+    setTitle(text){
+        this.title.html(text)
+    }
+
+    /* Change the slider state */
     updateSlider(rangeMin, rangeMax, rangeFrom, rangeTo){
         this.slider.update({
             min: s2t(rangeMin),
@@ -83,6 +92,7 @@ export default class MapView {
         })
     }
 
+    /* Refresh the STIB flow layer with new leg objects */
     updateMap(legs){
         this.layerControl.removeLayer(this.lines)
         for (let layer of this.features){
@@ -100,6 +110,8 @@ export default class MapView {
         this.layerControl.addOverlay(this.lines, "Lines")
     }
 
+    /* Disable the slider, get new data from the server.
+     * Upon success, update the STIB flow layer and enable slider */
     refresh(from_time, to_time){
         // Avoid reload from server if time frame has not changed
         if (from_time == this.from_time && to_time == this.to_time){
@@ -119,11 +131,18 @@ export default class MapView {
         })
     }
 
-    setRange(rangeMin, rangeMax, rangeFrom, rangeTo){
+    /* Set the selectionable time range (rangeMin, rangeMax),
+       and the displayed time window (rangeFrom, rangeTo) */
+    setRange(rangeMin, rangeMax, rangeFrom, rangeTo, title=""){
+        let fmt = 'MMMM Do YYYY, hh:mm'
+        let tFrom = moment(rangeMin).format(fmt)
+        let tTo = moment(rangeMax).format(fmt)
+        this.setTitle(`${title} <small>${tFrom} - ${tTo}</small>`)
         this.refresh(rangeFrom, rangeTo)
         this.updateSlider(rangeMin, rangeMax,rangeFrom,rangeTo)
     }
 
+    /* Set the boundary box of the map */
     setBound(longitudeMin, longitudeMax, latitudeMin, latitudeMax){
         this.map.fitBounds([
             [latitudeMin, longitudeMin],
