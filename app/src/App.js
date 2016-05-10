@@ -10,8 +10,7 @@ export default class App {
     constructor(){
         this.left = new MapView($('#left'))
         this.right = new MapView($('#right'))
-        this.makeEventsMenu()
-        this.makeUsualMenu()
+        this.makePredefinedMenus()
         this.makeRightSliderMenu()
         this.makeLeftSliderMenu()
         this.showModal()
@@ -68,14 +67,7 @@ export default class App {
         })
     }
 
-    makeUsualMenu(){
-        let menuRight = $('#usual-menu-right')
-        this.makeMenuRight(menuRight)
-        let menuLeft = $('#usual-menu-left')
-        this.makeMenuLeft(menuLeft)
-    }
-
-    makeEventsMenu(){
+    makePredefinedMenus(){
         function makeMenu(menu, map, otherMap, actionSelector){
             menu.find(actionSelector).click(evt => {
                 let li = $(evt.target).closest('li')
@@ -87,6 +79,8 @@ export default class App {
         }
 
         makeMenu($('#events-menu-left'), this.left, this.right, '.set-left')
+        makeMenu($('#usual-menu-left'), this.left, this.right, '.set-left')
         makeMenu($('#events-menu-right'), this.right, this.left, '.set-right')
+        makeMenu($('#usual-menu-right'), this.right, this.left, '.set-right')
     }
 }
