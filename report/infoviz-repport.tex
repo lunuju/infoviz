@@ -58,7 +58,7 @@ Informations about the stib lines were scrapped from the STIB mobile application
     \caption{\label{fig:stibmobile-app} The well-known frontend for the STIB API we used}
 \end{figure}
 
-In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from_stop_id, to_stop_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
+In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
 
 The scrapper and processing scripts have been written by another student for his bachelor thesis \footnote{}
 
