@@ -1,6 +1,4 @@
-\documentclass[11pt]{article}%
-\usepackage[utf8]{inputenc}
-
+\documentclass[12pt]{article}%
 \usepackage{amsfonts}
 \usepackage{fancyhdr}
 \usepackage{comment}
@@ -10,10 +8,7 @@
 \usepackage{amsmath}
 \usepackage{changepage}
 \usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{hyperref}
-\usepackage{wrapfig}
+\usepackage{graphicx}%
 \setcounter{MaxMatrixCols}{30}
 \newenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
 
@@ -33,6 +28,8 @@
 \section{Introduction}
 The mobility and public transportation in Brussels has a great importance in daily life of people using it.  Brussels region public transportation is organized into a vast number of lines that are divided into metro, tramways and buses, so the system is quite susceptible to suffer with exceptional events that happen in the city, which many times cause delays on its lines schedules, consequently, affecting its users.
 
+Additionally, many of the stations of the Brussels public transport network are only served by one line. This implies that any problem in a single point of the city potentially leads to many citizens being deprived of their right to go and come easily throughout the city.
+
 The main goal of the project is trying to answer two questions which are related to this context of mobility via information visualization:
 
 \begin{itemize}
@@ -42,74 +39,50 @@ The main goal of the project is trying to answer two questions which are related
 
 
 \section{Data sources}
+Some external different data sets were used in order to help supporting answering those questions. 
+
 \subsection{Public Transportation Stops}
-The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) and names is available at Open Data Brussels web portal\footnote{\url{http://opendata.bruxelles.be/explore/dataset/arrets-stib/}}.
+
+The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) is available at Open Data Brussels web portal. % reference needed
+
+It's worth noting that all the information related to the itineraries of the lines, i.e. the sequence of stops that the lines passes by, and the time scheduled for each stop were collected from the STIB/MIVB web portal, athough it was already available in relational database.
 
 \subsection{Lines Itineraries}
-Informations about the stib lines were scrapped from the STIB mobile application\footnote{\url{http://m.stib.be/}}. From his website we got the following informations:
-\begin{itemize}
-    \item The itinerary, that is the sequence of stops a line pass by from a terminus to another
-    \item The color of the line
-    \item Wether it is a tramway, a metro or a bus line
-\end{itemize}
 
-\subsection{Vehicles flow}
-\begin{figure}[H]
-    \center
-    \includegraphics[width=.3\textwidth]{stibmobile.png}
-    \caption{\label{fig:stibmobile-app} The well-known frontend for the STIB API we used}
-\end{figure}
-
-In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
+Information related to the itineraries of the lines - the sequence of stops that the lines passes by - and the time schedule to each stop were scraped from STIB/MIVB web portal, but it was already available in relational database.
 
 \subsection{Delay events}
+Data related to delay events that affects public transports lines are retrieved parsing information given by the official twitter of STIB/MIVB. % reference needed
+That was possible due the fact that the published tweets follows an standard for the use of hashtags
 Some specifics period events that happened in the city in the last months were added manually to the application, i.e. The european summit that happened in March.                       
                        
 \section{Architecture}
-Our visualization is structured as a single page web application, written in ES6, and compiled into javascript using babeljs\footnote{\url{http://babeljs.io/}}.
+We mostly used web technologies to create our visualization.
 
-We use Leaflet\footnote{\url{http://leafletjs.com/}} as map engine, the Ion Range Slider\footnote{\url{http://ionden.com/a/plugins/ion.rangeSlider/en.html}} for datetime pickers, and jQuery for DOM manipulation and asynchronous requests. Access to the database is provided by an API written in Python with Flask\footnote{}
+\subsection{Front-end}
+% bootstrap, leaflet, d3, es , npm
+% main challenge ? getting npm to work like we wanted ? 
 
+\subsection{Back-end}
+% flask, postgresql
+ 
 \section{The visualization}
 
 \subsection{Modal}
-
-We created a modal to ease the way for unfamiliar users with our visualization. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
-
-\todo{image}
 
 \subsection{Map view}
 
 \subsubsection{Stop density}
 
 \subsubsection{Lines}
-The color of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.
 
-The color scale goes from red when the transport take 15min or more to ride 1km to green when it takes 0min to ride 1km
-
-The thickness of the lines indicate how many vehicles per hour in avergae passed by this section (again, in the selected time frame)
-
+\subsubsection{Events and time selection}
 
 \subsection{Detailed view}
 
-% Wrapping a figure does not want to work
-
-%\begin{wrapfigure}{l}{0.35\textwidth}
-%\includegraphics[width=0.95\linewidth]{images/tooltip.png} 
-%\label{fig:subim1}
-%\end{wrapfigure}
-
-%Clicking on a line open a tooltip offering detailed information about the line.
-
-%\textbf{Ah ha!} On the image on the left, we can this that between Trone and Science, the 22 and 34 bus are going faster than the other
-
-%\vspace{6 cm}
-
-\subsection{Events and time selection}
-
 \section{Acknowledgement}
 
-We would like to thanks Nikita Marchant and it's STIB data project \cite{nikita} project which enables us to get the delay data in the form of a postgresql relational database.
+We would like to thanks Nikita Marchant and it's STIB data project project which enables us to get the delay data \cite{nikita} in the form of a postgresql relational database.
 
 \section{Conclusion}
 
@@ -122,15 +95,9 @@ We would like to thanks Nikita Marchant and it's STIB data project \cite{nikita}
 %Addison-Wesley, Reading, Massachusetts, 1993.
  
 \bibitem{nikita} 
-Nikita Marchant: "Estimation en temps réel des temps de trajet dans un réseau de bus à l'aide de données historiques"
-\\\url{https://github.com/C4ptainCrunch/info-f-308}
-
-\bibitem{visuawithmodal} 
-World Atlas of Language Structures,
-\\\url{http://www.puffpuffproject.com/languages.html}
-
-
-
+Nikita Marchant: STIB scraper and delay prediction,
+\\\texttt{https://github.com/C4ptainCrunch/info-f-308}
 \end{thebibliography}
+
 
 \end{document}
