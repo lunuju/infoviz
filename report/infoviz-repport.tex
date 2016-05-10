@@ -87,32 +87,39 @@ We created a modal to ease the way for unfamiliar users with our visualization. 
 
 \subsection{Map view}
 
+This map present 3 layers: a base map (topology), the geographical STIB stops density (colored area), and the STIB flow (colored lines on top). The user can change the displayed layers using the upper-right button. You can also navigate the map as in other traditional map-based applications.
+
+Below the map, a two-sided datetime range picker allows you to explore different time windows. When the datetime range changes, the STIB flow layer changes accordingly
+
 \subsubsection{Stop density}
+The density of STIB stops in Brussels has been computed using a gaussian kernel density estimation \cite{kdewiki}. Low densities (places where there are not many, or not any stops around) are red, average densities in blue and high densities (places with lots of STIB stops around) in yellow.
 
 \subsubsection{Lines}
-The color of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.
+The colour of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.
 
-The color scale goes from red when the transport take 15min or more to ride 1km to green when it takes 0min to ride 1km
+The colour scale goes from red when the transport take 15min or more to ride 1km to green when it takes 0min to ride 1km
 
-The thickness of the lines indicate how many vehicles per hour in avergae passed by this section (again, in the selected time frame)
+The thickness of the lines indicate how many vehicles per hour in average passed by this section (again, in the selected time frame)
 
 
 \subsection{Detailed view}
 
-% Wrapping a figure does not want to work
+\todo{Wrapping a figure does not want to work}
 
 %\begin{wrapfigure}{l}{0.35\textwidth}
 %\includegraphics[width=0.95\linewidth]{images/tooltip.png} 
 %\label{fig:subim1}
 %\end{wrapfigure}
 
-%Clicking on a line open a tooltip offering detailed information about the line.
+Clicking on a line open a tooltip offering detailed information about the line showing statistics about that line. The statistics include a D3 histogram of the traject time
 
 %\textbf{Ah ha!} On the image on the left, we can this that between Trone and Science, the 22 and 34 bus are going faster than the other
 
 %\vspace{6 cm}
 
 \subsection{Events and time selection}
+
+The navbar allows the user to choose a timeframe. The timeframe can be an average moment, a specific event or a precise moment in the time. The precise moment is selected trough a one sided slider.
 
 \section{Acknowledgement}
 
@@ -135,6 +142,10 @@ Nikita Marchant: STIB scraper and delay prediction,
 \bibitem{visuawithmodal} 
 World Atlas of Language Structures,
 \\\texttt{http://www.puffpuffproject.com/languages.html}
+
+\bibitem{kdewiki} 
+Kernel density estimation,
+\\\texttt{https://en.wikipedia.org/wiki/Kernel_density_estimation}
 
 
 
