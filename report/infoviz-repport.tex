@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}%
 \usepackage[utf8]{inputenc}
+\usepackage{todonotes}
 
 \usepackage{amsfonts}
 \usepackage{fancyhdr}
@@ -43,10 +44,10 @@ The main goal of the project is trying to answer two questions which are related
 
 \section{Data sources}
 \subsection{Public Transportation Stops}
-The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) and names is available at Open Data Brussels web portal\footnote{\url{http://opendata.bruxelles.be/explore/dataset/arrets-stib/}}.
+The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) and names is available at Open Data Brussels web portal \footnote{\url{http://opendata.bruxelles.be/explore/dataset/arrets-stib/}}.
 
 \subsection{Lines Itineraries}
-Informations about the stib lines were scrapped from the STIB mobile application\footnote{\url{http://m.stib.be/}}. From his website we got the following informations:
+Informations about the stib lines were scrapped from the STIB mobile application \footnote{\url{http://m.stib.be/}}. From his website we got the following informations:
 \begin{itemize}
     \item The itinerary, that is the sequence of stops a line pass by from a terminus to another
     \item The color of the line
@@ -60,15 +61,15 @@ Informations about the stib lines were scrapped from the STIB mobile application
     \caption{\label{fig:stibmobile-app} The well-known frontend for the STIB API we used}
 \end{figure}
 
-In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
+In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure\_time, arrival\_time)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions, and http cache to make the application more fluid.
 
 \subsection{Delay events}
 Some specifics period events that happened in the city in the last months were added manually to the application, i.e. The european summit that happened in March.                       
                        
 \section{Architecture}
-Our visualization is structured as a single page web application, written in ES6, and compiled into javascript using babeljs\footnote{\url{http://babeljs.io/}}.
+Our visualization is structured as a single page web application, written in ES6, and compiled into javascript using babeljs \footnote{\url{http://babeljs.io/}}.
 
-We use Leaflet\footnote{\url{http://leafletjs.com/}} as map engine, the Ion Range Slider\footnote{\url{http://ionden.com/a/plugins/ion.rangeSlider/en.html}} for datetime pickers, and jQuery for DOM manipulation and asynchronous requests. Access to the database is provided by an API written in Python with Flask\footnote{}
+We use Leaflet \footnote{\url{http://leafletjs.com/}} as map engine, the Ion Range Slider \footnote{\url{http://ionden.com/a/plugins/ion.rangeSlider/en.html}} for datetime pickers, and jQuery \footnote{\url{https://jquery.com/}} for DOM manipulation and asynchronous requests. Access to the database is provided by an API written in Python with Flask \footnote{\url{http://flask.pocoo.org/}}
 
 \section{The visualization}
 
