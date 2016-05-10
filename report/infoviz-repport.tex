@@ -8,7 +8,9 @@
 \usepackage{amsmath}
 \usepackage{changepage}
 \usepackage{amssymb}
-\usepackage{graphicx}%
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
 \usepackage{wrapfig}
 \setcounter{MaxMatrixCols}{30}
 \newenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
@@ -38,15 +40,27 @@ The main goal of the project is trying to answer two questions which are related
 
 
 \section{Data sources}
-Some external different data sets were used in order to help supporting answering those questions. 
-
 \subsection{Public Transportation Stops}
-
-The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) is available at Open Data Brussels web portal % reference needed
+The public transportation network on Brussels region is managed by Brussels Intercommunal Transport Company (STIB/MIVB). The dataset used providing all stops locations (coordinates) and names is available at Open Data Brussels web portal\footnote{\url{http://opendata.bruxelles.be/explore/dataset/arrets-stib/}}.
 
 \subsection{Lines Itineraries}
+Informations about the stib lines were scrapped from the STIB mobile application\footnote{\url{http://m.stib.be/}}. From his website we got the following informations:
+\begin{itemize}
+    \item The itinerary, that is the sequence of stops a line pass by from a terminus to another
+    \item The color of the line
+    \item Wether it is a tramway, a metro or a bus line
+\end{itemize}
 
-Information related to the itineraries of the lines - the sequence of stops that the lines passes by - and the time schedule to each stop were scraped from STIB/MIVB web portal, but it was already available in relational database.
+\subsection{Vehicles flow}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=.3\textwidth]{stibmobile.png}
+    \caption{\label{fig:stibmobile-app} The well-known frontend for the STIB API we used}
+\end{figure}
+
+In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from_stop_id, to_stop_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
+
+The scrapper and processing scripts have been written by another student for his bachelor thesis \footnote{}
 
 \subsection{Delay events}
 Data related to delay events that affects public transports lines are retrieved parsing information given by the official twitter of STIB/MIVB. % reference needed
