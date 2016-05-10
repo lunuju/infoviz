@@ -35,6 +35,8 @@
 
 The mobility and public transportation in Brussels has a great importance in daily life of people using it.  Brussels region public transportation is organized into a vast number of lines that are divided into metro, tramways and buses, so the system is quite susceptible to suffer with exceptional events that happen in the city, which many times cause delays on its lines schedules, consequently, affecting its users.
 
+Additionally, many of the stations of the Brussels public transport network are only served by one line. This implies that any problem in a single point of the city potentially leads to many citizens being deprived of their right to go and come easily throughout the city.
+
 The main goal of the project is trying to answer two questions which are related to this context of mobility via information visualization:
 
 \begin{enumerate}
@@ -57,7 +59,7 @@ The main goal of the project is trying to answer two questions which are related
   In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure\_time, arrival\_time)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions, and http cache to make the application more fluid.
 
   \subsection{Lines Itineraries}
-  Informations about the stib lines were scrapped from the STIB mobile application. From his website we got the following informations:
+  It's worth noting that all the information related to the itineraries of the lines, i.e. the sequence of stops that the lines passes by, and the time scheduled for each stop were collected from the STIB/MIVB web portal, athough it was already available in relational database \footnote{\url{http://m.stib.be/}}. From their website, we got the following informations:
   \begin{itemize}
       \item The itinerary, that is the sequence of stops a line pass by from a terminus to another
       \item The color of the line
@@ -94,11 +96,11 @@ Below the map, a two-sided datetime range picker allows you to explore different
 The density of STIB stops in Brussels has been computed using a gaussian kernel density estimation \cite{kdewiki}. Low densities (places where there are not many, or not any stops around) are red, average densities in blue and high densities (places with lots of STIB stops around) in yellow.
 
 \subsubsection{Lines}
-The colour of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed in straight line between 2 stops.
+The colour of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed based on a straight line between 2 distinct stops.
 
-The colour scale goes from red when the transport take 15min or more to ride 1km to green when it takes 0min to ride 1km
+The colour scale goes from red to green, where red stands for a situation where a transport takes 15 minutes or more to travel 1 kilometer, whereas green represent a vehicle capable of traveling 1 kilometer in less than 60 seconds.
 
-The thickness of the lines indicate how many vehicles per hour in average passed by this section (again, in the selected time frame)
+Finally, the thickness of the lines indicates how many vehicles, per hour, in average passed by this section. An important remark is that this is valid for a certain time frame.
 
 
 \begin{minipage}{0.3\textwidth}
