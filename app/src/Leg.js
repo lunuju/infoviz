@@ -112,7 +112,7 @@ export default class Leg {
             // Colorscale: 0 to 15min to ride 1km
             color: getColor(this.avg_time/this.distance(), 900),
             opacity: 1,
-            weight: 2*Math.log(this.per_hour)
+            weight: 1 + 2 * Math.sqrt(this.per_hour)
         }
         let line = L.polyline(this.latLng(), style)
 
