@@ -1,4 +1,6 @@
-\documentclass[12pt]{article}%
+\documentclass[11pt]{article}%
+\usepackage[utf8]{inputenc}
+
 \usepackage{amsfonts}
 \usepackage{fancyhdr}
 \usepackage{comment}
@@ -60,23 +62,14 @@ Informations about the stib lines were scrapped from the STIB mobile application
 
 In order to get the travel time for each line, a script is periodically querying the SITB mobile application API. We obtain a snapshot of the vehicles position every 20 seconds for each line. It is not possible to have a better resolution without trouble for the STIB servers. These snapshots are then processed to obtain the travel times. At this step, we have a set of tuples \texttt{(line, from\_stop\_id, to\_stop\_id, departure, arrival)}, stored in a relational database (PostgreSQL). As the amount of data is quite large, we rely on database indexes and aggregation functions to query for data.
 
-The scrapper and processing scripts have been written by another student for his bachelor thesis \footnote{}
-
 \subsection{Delay events}
-Data related to delay events that affects public transports lines are retrieved parsing information given by the official twitter of STIB/MIVB. % reference needed
-That was possible due the fact that the published tweets follows an standard for the use of hashtags
 Some specifics period events that happened in the city in the last months were added manually to the application, i.e. The european summit that happened in March.                       
                        
 \section{Architecture}
-We mostly used web technologies to create our visualization.
+Our visualization is structured as a single page web application, written in ES6, and compiled into javascript using babeljs\footnote{\url{http://babeljs.io/}}.
 
-\subsection{Front-end}
-% bootstrap, leaflet, d3, es , npm
-% main challenge ? getting npm to work like we wanted ? 
+We use Leaflet\footnote{\url{http://leafletjs.com/}} as map engine, the Ion Range Slider\footnote{\url{http://ionden.com/a/plugins/ion.rangeSlider/en.html}} for datetime pickers, and jQuery for DOM manipulation and asynchronous requests. Access to the database is provided by an API written in Python with Flask\footnote{}
 
-\subsection{Back-end}
-% flask, postgresql
- 
 \section{The visualization}
 
 \subsection{Modal}
@@ -122,12 +115,12 @@ We would like to thanks Nikita Marchant and it's STIB data project \cite{nikita}
 %Addison-Wesley, Reading, Massachusetts, 1993.
  
 \bibitem{nikita} 
-Nikita Marchant: STIB scraper and delay prediction,
-\\\texttt{https://github.com/C4ptainCrunch/info-f-308}
+Nikita Marchant: "Estimation en temps réel des temps de trajet dans un réseau de bus à l'aide de données historiques"
+\\\url{https://github.com/C4ptainCrunch/info-f-308}
 
 \bibitem{visuawithmodal} 
 World Atlas of Language Structures,
-\\\texttt{http://www.puffpuffproject.com/languages.html}
+\\\url{http://www.puffpuffproject.com/languages.html}
 
 
 
