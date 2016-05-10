@@ -9,6 +9,7 @@
 \usepackage{changepage}
 \usepackage{amssymb}
 \usepackage{graphicx}%
+\usepackage{wrapfig}
 \setcounter{MaxMatrixCols}{30}
 \newenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
 
@@ -66,19 +67,35 @@ We mostly used web technologies to create our visualization.
 
 \subsection{Modal}
 
+To ease the way for users unfamiliar with the visualization, we created a modal. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
+
 \subsection{Map view}
 
 \subsubsection{Stop density}
 
-\subsubsection{Lines}
 
-\subsubsection{Events and time selection}
+\subsubsection{Lines}
 
 \subsection{Detailed view}
 
+% Wrapping a figure does not want to work
+
+%\begin{wrapfigure}{l}{0.35\textwidth}
+%\includegraphics[width=0.95\linewidth]{images/tooltip.png} 
+%\label{fig:subim1}
+%\end{wrapfigure}
+
+%Clicking on a line open a tooltip offering detailed information about the line.
+
+%\textbf{Ah ha!} On the image on the left, we can this that between Trone and Science, the 22 and 34 bus are going faster than the other
+
+%\vspace{6 cm}
+
+\subsection{Events and time selection}
+
 \section{Acknowledgement}
 
-We would like to thanks Nikita Marchant and it's STIB data project project which enables us to get the delay data \cite{nikita} in the form of a postgresql relational database.
+We would like to thanks Nikita Marchant and it's STIB data project \cite{nikita} project which enables us to get the delay data in the form of a postgresql relational database.
 
 \section{Conclusion}
 
@@ -93,7 +110,13 @@ We would like to thanks Nikita Marchant and it's STIB data project project which
 \bibitem{nikita} 
 Nikita Marchant: STIB scraper and delay prediction,
 \\\texttt{https://github.com/C4ptainCrunch/info-f-308}
-\end{thebibliography}
 
+\bibitem{visuawithmodal} 
+World Atlas of Language Structures,
+\\\texttt{http://snip.ly/pJsZ#http://www.puffpuffproject.com/languages.html}
+
+
+
+\end{thebibliography}
 
 \end{document}
