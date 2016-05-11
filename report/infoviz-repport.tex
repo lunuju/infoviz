@@ -80,11 +80,18 @@ We use Leaflet \footnote{\url{http://leafletjs.com/}} as map engine, the Ion Ran
 
 \section{The visualization}
 
-\subsection{Modal}
 
-We created a modal to ease the way for unfamiliar users with our visualization. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
+\begin{minipage}{0.4\textwidth}
+  \begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/modal.png}
+    \caption{Help modal}
+  \end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.58\textwidth}
+  \subsection{Modal}
+  We created a modal to ease the way for unfamiliar users with our visualization. That is a documentation page overlaying the visualization itself providing guidance to the user. That idea come from other visualization found on the web (eg : World Atlas of Language Structures \cite{visuawithmodal}).
+\end{minipage}
 
-\todo{image}
 
 \subsection{Map view}
 
@@ -92,26 +99,42 @@ This map present 3 layers: a base map (topology), the geographical STIB stops de
 
 Below the map, a two-sided datetime range picker allows you to explore different time windows. When the datetime range changes, the STIB flow layer changes accordingly
 
-\subsubsection{Stop density}
-The density of STIB stops in Brussels has been computed using a gaussian kernel density estimation \cite{kdewiki}. Low densities (places where there are not many, or not any stops around) are red, average densities in blue and high densities (places with lots of STIB stops around) in yellow.
+\begin{minipage}{0.3\textwidth}
+  \begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/area.png}
+    \caption{Stops density layer}
+  \end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.6\textwidth}
+  \subsubsection{Stop density}
+  The density of STIB stops in Brussels has been computed using a gaussian kernel density estimation \cite{kdewiki}. Low densities (places where there are not many, or not any stops around) are red, average densities in blue and high densities (places with lots of STIB stops around) in yellow.
+\end{minipage}
 
-\subsubsection{Lines}
-The colour of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed based on a straight line between 2 distinct stops.
+\begin{minipage}{0.3\textwidth}
+  \begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/lines.png}
+    \caption{STIB lines layer}
+  \end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.6\textwidth}
+  \subsubsection{Lines}
+  The colour of the line indicates how fast a vehicle goes from a stop to another, in average in the selected time frame. Note that the speed is computed based on a straight line between 2 distinct stops.
 
-The colour scale goes from red to green, where red stands for a situation where a transport takes 15 minutes or more to travel 1 kilometer, whereas green represent a vehicle capable of traveling 1 kilometer in less than 60 seconds.
+  The colour scale goes from red to green, where red stands for a situation where a transport takes 15 minutes or more to travel 1 kilometer, whereas green represent a vehicle capable of traveling 1 kilometer in less than 60 seconds.
 
-Finally, the thickness of the lines indicates how many vehicles, per hour, in average passed by this section. An important remark is that this is valid for a certain time frame.
-
+  Finally, the thickness of the lines indicates how many vehicles, per hour, in average passed by this section. An important remark is that this is valid for a certain time frame.
+\end{minipage}
 
 \begin{minipage}{0.3\textwidth}
   \begin{figure}[H]
     \includegraphics[width=\textwidth]{images/popup1.png}
+    \caption{\label{fig:popup} The detailled tooltip}
   \end{figure}
 \end{minipage}\hfill
 \begin{minipage}{0.6\textwidth}
     \subsection{Detailed view}
     Clicking on a line open a tooltip offering detailed information about the line showing statistics about that line. The statistics include a D3 histogram of the traject time.
-    \paragraph{Ah ha!} On the image on the left, we can this that between Trone and Science, the 22 and 34 bus are going faster than the other
+    \paragraph{Ah ha!} On Figure \ref{fig:popup}, we can clearly see that the 7 takes less time than the 3 on the traject from Heembeek to Buissonnets.
 \end{minipage}
 
 \subsection{Events and time selection}
